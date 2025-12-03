@@ -4,18 +4,19 @@ import java.time.LocalDate;
 
 public class Collective extends Task
 {
-  public Collective(String description, int pointsGained)
+  private Cloverfield cloverfield; //TODO Jeg lavet virkelig noget hacking for at kunne overholde forhold
+
+  public Collective(String description, int pointsGained, Cloverfield cloverfield)
   {
     super(description, pointsGained);
+    this.cloverfield=cloverfield;
   }
 
-  public Collective(String description, int pointsGained, Resident reservedBy)
+  @Override public void completeTask(Resident completedBy)
   {
-    super(description, pointsGained, reservedBy);
-  }
-
-  public void completeTask()
-  {
-    super.completeTask(null);
+    super.setCompletedDate(LocalDate.now());
+    super.setCompletedBy(completedBy);
+    super.setIsComplete(true);
+    cloverfield.addPoints(super.getPointsGained());
   }
 }

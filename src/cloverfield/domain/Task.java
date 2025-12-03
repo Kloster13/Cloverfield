@@ -3,20 +3,20 @@ package cloverfield.domain;
 import java.time.LocalDate;
 import java.io.Serializable;
 
-public class Task implements Serializable
+public abstract class Task implements Serializable
 {
   private String description;
   private int pointsGained;
+  private boolean isCompleted;
   private Resident completedBy;
   private LocalDate completedDate;
-  private int id; // skal id være final.... og gæder det også for point... description kan vel ændre sig/ ændres??
   private Resident reservedBy;
+  private int id;
 
   public Task(String description, int pointsGained)
   {
     this.description = description;
     this.pointsGained = pointsGained;
-
   }
 
   public Task(String description, int pointsGained, Resident reservedBy)
@@ -26,13 +26,7 @@ public class Task implements Serializable
     this.reservedBy = reservedBy;
   }
 
-  public void completeTask(Resident completedBy)
-  {
-    this.completedBy = completedBy;
-    this.completedDate = LocalDate.now();
-    // Er det med vilje at vi ikke har completedDate med i vores uml?? Og skal den have en set i stedet for at blive sat automatisk?
-    // ps. Koden blive flagget med en error.... jeg kan ikke finde ud af at løse den.... kan du/i?
-  }
+  public abstract void completeTask(Resident completedBy);
 
   public String getDescription()
   {
@@ -67,5 +61,42 @@ public class Task implements Serializable
   public void setReservedBy(Resident reservedBy)
   {
     this.reservedBy = reservedBy;
+  }
+
+  public void setDescription(String description)
+  {
+    this.description = description;
+  }
+
+  public void setPointsGained(int pointsGained)
+  {
+    this.pointsGained = pointsGained;
+  }
+
+  public void setCompletedBy(Resident completedBy)
+  {
+    this.completedBy = completedBy;
+  }
+
+  public void setCompletedDate(LocalDate completedDate)
+  {
+    this.completedDate = completedDate;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
+  }
+
+  public void setIsComplete(boolean completed)
+  {
+    isCompleted = completed;
+  }
+
+  @Override public String toString()
+  {
+    return "Task{" + "description='" + description + '\'' + ", pointsGained="
+        + pointsGained + ", isCompleted=" + isCompleted + ", completedBy="
+        + completedBy + ", completedDate=" + completedDate + '}';
   }
 }

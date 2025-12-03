@@ -1,5 +1,7 @@
 package cloverfield.domain;
 
+import java.time.LocalDate;
+
 public class Green extends Task
 {
 
@@ -13,9 +15,11 @@ public class Green extends Task
     super(description, pointsGained, reservedBy);
   }
 
-  public void completeTask()
+  @Override public void completeTask(Resident completedBy)
   {
-    super.completeTask(null); // er det her rigtigt?
+    super.setCompletedDate(LocalDate.now());
+    completedBy.addPoints(super.getPointsGained());
+    super.setCompletedBy(completedBy);
+    super.setIsComplete(true);
   }
 }
-// Skal der være en reservedBy... det skal der nok hvis den skal tildeles. Men det er måske en fejl fra min side...
