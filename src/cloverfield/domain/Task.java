@@ -18,12 +18,11 @@ public abstract class Task implements Serializable
     this.description = description;
     this.pointsGained = pointsGained;
   }
-
   public Task(String description, int pointsGained, Resident reservedBy)
   {
     this.description = description;
     this.pointsGained = pointsGained;
-    this.reservedBy = reservedBy;
+    this.reservedBy=reservedBy;
   }
 
   public abstract void completeTask(Resident completedBy);

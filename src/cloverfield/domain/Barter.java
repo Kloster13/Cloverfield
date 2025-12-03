@@ -16,8 +16,8 @@ public class Barter extends Task
   {
     super.setCompletedDate(LocalDate.now());
     completedBy.addPoints(super.getPointsGained());
-    createdBy.addPoints(super.getPointsGained()*-1);
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
+    createdBy.addPoints(super.getPointsGained()*-1);
   }
 }

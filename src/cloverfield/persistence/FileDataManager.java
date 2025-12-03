@@ -48,4 +48,19 @@ public class FileDataManager implements DataManager
       throw new FileAccessException("Error in loading data");
     }
   }
+
+  @Override public void addGreenTask()
+  {
+    
+  }
+
+  @Override public void addBarterTask()
+  {
+
+  }
+
+  @Override public void addCollectiveTask()
+  {
+
+  }
 }
