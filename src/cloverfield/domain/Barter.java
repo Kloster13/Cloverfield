@@ -8,10 +8,14 @@ public class Barter extends Task
   {
     super(description, pointsGained);
   }
-  public Barter(String description, int pointsGained, Resident reservedBy){
+
+  public Barter(String description, int pointsGained, Resident reservedBy)
+  {
     super(description, pointsGained, reservedBy);
   }
-  public void completeTask() {
+
+  public void completeTask()
+  {
     super.completeTask(null);
   }
 }

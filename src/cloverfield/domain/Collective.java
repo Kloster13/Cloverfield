@@ -14,7 +14,8 @@ public class Collective extends Task
     super(description, pointsGained, reservedBy);
   }
 
-  public void completeTask() {
+  public void completeTask()
+  {
     super.completeTask(null);
   }
 }

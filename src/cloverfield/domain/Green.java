@@ -7,11 +7,14 @@ public class Green extends Task
   {
     super(description, pointsGained);
   }
-  public Green(String description, int pointsGained, Resident reservedBy){
+
+  public Green(String description, int pointsGained, Resident reservedBy)
+  {
     super(description, pointsGained, reservedBy);
   }
 
-  public void completeTask() {
+  public void completeTask()
+  {
     super.completeTask(null); // er det her rigtigt?
   }
 }

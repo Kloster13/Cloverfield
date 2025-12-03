@@ -3,7 +3,8 @@ package cloverfield.domain;
 import java.time.LocalDate;
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public class Task implements Serializable
+{
   private String description;
   private int pointsGained;
   private Resident completedBy;
@@ -29,7 +30,7 @@ public class Task implements Serializable {
   {
     this.completedBy = completedBy;
     this.completedDate = LocalDate.now();
-    // Er det med vilje at vi ikke har completedDate med i vores uml?? Og skal den have en set i stedet for at blive sat automatiskl?
+    // Er det med vilje at vi ikke har completedDate med i vores uml?? Og skal den have en set i stedet for at blive sat automatisk?
     // ps. Koden blive flagget med en error.... jeg kan ikke finde ud af at løse den.... kan du/i?
   }
 
