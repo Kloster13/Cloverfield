@@ -1,6 +1,7 @@
 package cloverfield.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Barter extends Task
 {
@@ -12,12 +13,27 @@ public class Barter extends Task
     this.createdBy=createdBy;
   }
 
-  @Override public void completeTask(Resident completedBy)
+  @Override public void completeTask(Resident completedBy,  double multiplier)
   {
     super.setCompletedDate(LocalDate.now());
-    completedBy.addPoints(super.getPointsGained());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
-    createdBy.addPoints(super.getPointsGained()*-1);
+    completedBy.addPoints(super.getPointsGained(),multiplier);
+    createdBy.reducePoints(super.getPointsGained());
+  }
+
+  @Override public boolean equals(Object o)
+  {
+    if (o == null || getClass() != o.getClass())
+      return false;
+    if (!super.equals(o))
+      return false;
+    Barter barter = (Barter) o;
+    return Objects.equals(createdBy, barter.createdBy);
+  }
+
+  @Override public int hashCode()
+  {
+    return Objects.hash(super.hashCode(), createdBy);
   }
 }

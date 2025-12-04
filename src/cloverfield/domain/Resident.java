@@ -17,20 +17,31 @@ public class Resident implements Serializable
     this.active = active;
     activeTasks = new ArrayList<>();
   }
-
   public void addPoints(int pointsToAdd)
+  {
+    this.personalPoints += pointsToAdd;
+  }
+
+  public void addPoints(int pointsToAdd, double multiplier)
   {
     if (!active)
     {
-      pointsToAdd = (int) (1.2*pointsToAdd);
+      pointsToAdd = (int) (multiplier * pointsToAdd);
     }
     this.personalPoints += pointsToAdd;
   }
 
+  public void reducePoints(int pointsToRemove)
+  {
+    if(personalPoints-pointsToRemove<0){
+      throw new InvalidTaskException("Points can´t be negative");
+    }
+    this.personalPoints-=pointsToRemove;
+  }
+
   @Override public String toString()
   {
-    return name+"{ "+ "active="
-        + active + ", activeTasks=" + activeTasks + ", personalPoints="
-        + personalPoints + '}';
+    return name + "{ " + "active=" + active + ", activeTasks=" + activeTasks
+        + ", personalPoints=" + personalPoints + '}';
   }
 }

@@ -26,7 +26,7 @@ public class TaskDomainTester
       System.out.println(don);
       System.out.println("------------------");
       System.out.println(task);
-      task.completeTask(don);
+      task.completeTask(don,cloverfield.getActiveMultiplier());
     }
     System.out.println(bob);
     System.out.println(don);

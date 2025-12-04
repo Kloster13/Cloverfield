@@ -11,8 +11,8 @@ import java.util.List;
 public class DataContainer implements Serializable
 {
   private Cloverfield cloverfield;
-  private List<Resident> residents;
-  private List<Task> tasks;
+  private ArrayList<Resident> residents;
+  private ArrayList<Task> tasks;
 
   public DataContainer()
   {
@@ -21,12 +21,12 @@ public class DataContainer implements Serializable
     cloverfield=new Cloverfield();
   }
 
-  public List<Resident> getResidents()
+  public ArrayList<Resident> getResidents()
   {
     return residents;
   }
 
-  public List<Task> getTasks()
+  public ArrayList<Task> getTasks()
   {
     return tasks;
   }

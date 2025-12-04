@@ -1,9 +1,8 @@
 package cloverfield.persistence;
 
+import cloverfield.domain.Task;
+
 public interface DataManager
 {
-  public abstract void addGreenTask();
-  public abstract void addBarterTask();
-  public abstract void addCollectiveTask();
-
+public abstract void addTask(Task task);
 }
