@@ -1,9 +1,6 @@
 package cloverfield.persistence;
 
-import cloverfield.domain.Cloverfield;
-import cloverfield.domain.InvalidTaskException;
-import cloverfield.domain.Resident;
-import cloverfield.domain.Task;
+import cloverfield.domain.*;
 
 import javax.xml.crypto.Data;
 import java.io.*;
@@ -15,11 +12,10 @@ import java.util.Comparator;
 
 public class FileDataManager implements DataManager
 {
-  private final String fileName = "CloverfieldData.bin";
+  private final Path path = Paths.get("src", "cloverfield", "CloverfieldData.bin");
 
   public FileDataManager() throws FileAccessException
   {
-    Path path = Paths.get("src", "cloverfield", "data", fileName);
     if (!Files.exists(path))
     {
       DataContainer dataContainer = new DataContainer();
@@ -29,8 +25,6 @@ public class FileDataManager implements DataManager
 
   public void save(DataContainer dataContainer) throws FileAccessException
   {
-    Path path = Paths.get("src", "cloverfield", "data", fileName);
-
     try (ObjectOutputStream output = new ObjectOutputStream(
         new FileOutputStream(path.toFile())))
     {
@@ -44,7 +38,6 @@ public class FileDataManager implements DataManager
 
   public DataContainer load() throws FileAccessException
   {
-    Path path = Paths.get("src", "cloverfield", "data", fileName);
     try (ObjectInputStream input = new ObjectInputStream(
         new FileInputStream(path.toFile())))
     {

@@ -10,6 +10,7 @@ public class Barter extends Task
   public Barter(String description, int pointsGained, Resident createdBy)
   {
     super(description, pointsGained);
+    super.setType("Bytte");
     this.createdBy=createdBy;
   }
 

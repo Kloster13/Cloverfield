@@ -7,6 +7,7 @@ public class Collective extends Task
   public Collective(String description, int pointsGained)
   {
     super(description, pointsGained);
+    super.setType("Fælles");
   }
 
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)

@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public abstract class Task implements Serializable
 {
+  private String type;
   private String description;
   private int pointsGained;
   private boolean isCompleted;
@@ -90,6 +91,9 @@ public abstract class Task implements Serializable
   public void setCompletedDate(LocalDate completedDate)
   {
     this.completedDate = completedDate;
+  }
+  protected void setType(String type){
+    this.type=type;
   }
 
   public void setId(int id)

@@ -14,7 +14,7 @@ public class MainViewController
   {
   }
 
-  public void onHandlePoint(ActionEvent actionEvent)
+  public void onHandleTask(ActionEvent actionEvent)
   {
     ViewManager.showView("ManageTask");
   }

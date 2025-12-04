@@ -14,6 +14,7 @@ public class Green extends Task
   public Green(String description, int pointsGained, Resident reservedBy)
   {
     super(description, pointsGained, reservedBy);
+    super.setType("Grøn");
   }
 
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
