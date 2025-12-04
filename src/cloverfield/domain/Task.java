@@ -18,11 +18,20 @@ public abstract class Task implements Serializable
     this.description = description;
     this.pointsGained = pointsGained;
   }
+
   public Task(String description, int pointsGained, Resident reservedBy)
   {
+    if (description.isEmpty())
+    {
+      throw new InvalidTaskException("Must include description");
+    }
     this.description = description;
+    if (pointsGained<0)
+    {
+      throw new InvalidTaskException("Points can't be negative");
+    }
     this.pointsGained = pointsGained;
-    this.reservedBy=reservedBy;
+    this.reservedBy = reservedBy;
   }
 
   public abstract void completeTask(Resident completedBy);
