@@ -13,11 +13,19 @@ public class Collective extends Task
     this.cloverfield = cloverfield;
   }
 
-  @Override public void completeTask(Resident completedBy)
+  @Override public void completeTask(Resident completedBy, double multiplier)
   {
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
     cloverfield.addPoints(super.getPointsGained());
+  }
+  @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    return super.equals(o);
   }
 }

@@ -2,6 +2,7 @@ package cloverfield.domain;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Task implements Serializable
 {
@@ -34,7 +35,7 @@ public abstract class Task implements Serializable
     this.reservedBy = reservedBy;
   }
 
-  public abstract void completeTask(Resident completedBy);
+  public abstract void completeTask(Resident completedBy, double multiplier);
 
   public String getDescription()
   {
@@ -106,5 +107,22 @@ public abstract class Task implements Serializable
     return "Task{" + "description='" + description + '\'' + ", pointsGained="
         + pointsGained + ", isCompleted=" + isCompleted + ", completedBy="
         + completedBy + ", completedDate=" + completedDate + '}';
+  }
+
+  @Override public boolean equals(Object o)
+  {
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Task task = (Task) o;
+    return pointsGained == task.pointsGained && isCompleted == task.isCompleted
+        && Objects.equals(description, task.description) && Objects.equals(
+        completedBy, task.completedBy) && Objects.equals(completedDate,
+        task.completedDate);
+  }
+
+  @Override public int hashCode()
+  {
+    return Objects.hash(description, pointsGained, isCompleted, completedBy,
+        completedDate);
   }
 }
