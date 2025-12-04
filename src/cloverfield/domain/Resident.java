@@ -11,6 +11,11 @@ public class Resident implements Serializable
   private ArrayList<Task> activeTasks;
   private int personalPoints;
 
+  public Resident(String name)
+  {
+    this.name = name;
+    activeTasks = new ArrayList<>();
+  }
   public Resident(String name, int id, boolean active)
   {
     this.name = name;

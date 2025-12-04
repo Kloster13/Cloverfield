@@ -10,15 +10,16 @@ public class Green extends Task
     super(description, pointsGained);
   }
 
+  //TODO overvej om denne skal være her
   public Green(String description, int pointsGained, Resident reservedBy)
   {
     super(description, pointsGained, reservedBy);
   }
 
-  @Override public void completeTask(Resident completedBy, double multiplier)
+  @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
     super.setCompletedDate(LocalDate.now());
-    completedBy.addPoints(super.getPointsGained(),multiplier);
+    completedBy.addPoints(super.getPointsGained(),cloverfield.getActiveMultiplier());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
   }

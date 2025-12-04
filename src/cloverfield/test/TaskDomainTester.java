@@ -13,7 +13,7 @@ public class TaskDomainTester
     Resident bob = new Resident("Bob", 0, true);
     Resident don = new Resident("Don", 1, false);
     Green green = new Green("Feje", 10);
-    Collective collective = new Collective("Også feje", 20, cloverfield);
+    Collective collective = new Collective("Også feje", 20);
     Barter barter = new Barter("fej for mig", 25, bob);
 
     bob.addPoints(30);
@@ -26,7 +26,7 @@ public class TaskDomainTester
       System.out.println(don);
       System.out.println("------------------");
       System.out.println(task);
-      task.completeTask(don,cloverfield.getActiveMultiplier());
+      task.completeTask(don,cloverfield);
     }
     System.out.println(bob);
     System.out.println(don);

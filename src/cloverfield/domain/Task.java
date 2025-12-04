@@ -35,7 +35,7 @@ public abstract class Task implements Serializable
     this.reservedBy = reservedBy;
   }
 
-  public abstract void completeTask(Resident completedBy, double multiplier);
+  public abstract void completeTask(Resident completedBy, Cloverfield cloverfield);
 
   public String getDescription()
   {
@@ -104,7 +104,7 @@ public abstract class Task implements Serializable
 
   @Override public String toString()
   {
-    return "Task{" + "description='" + description + '\'' + ", pointsGained="
+    return "Task{" +"ID="+id+ ", description='" + description + '\'' + ", pointsGained="
         + pointsGained + ", isCompleted=" + isCompleted + ", completedBy="
         + completedBy + ", completedDate=" + completedDate + '}';
   }

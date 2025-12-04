@@ -4,16 +4,12 @@ import java.time.LocalDate;
 
 public class Collective extends Task
 {
-  private Cloverfield cloverfield; //TODO Jeg lavet virkelig noget hacking for at kunne overholde forhold
-
-  public Collective(String description, int pointsGained,
-      Cloverfield cloverfield)
+  public Collective(String description, int pointsGained)
   {
     super(description, pointsGained);
-    this.cloverfield = cloverfield;
   }
 
-  @Override public void completeTask(Resident completedBy, double multiplier)
+  @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);

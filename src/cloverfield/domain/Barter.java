@@ -13,12 +13,12 @@ public class Barter extends Task
     this.createdBy=createdBy;
   }
 
-  @Override public void completeTask(Resident completedBy,  double multiplier)
+  @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
-    completedBy.addPoints(super.getPointsGained(),multiplier);
+    completedBy.addPoints(super.getPointsGained(),cloverfield.getActiveMultiplier());
     createdBy.reducePoints(super.getPointsGained());
   }
 

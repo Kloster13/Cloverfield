@@ -1,8 +1,11 @@
 package cloverfield.persistence;
 
+import cloverfield.domain.Cloverfield;
 import cloverfield.domain.InvalidTaskException;
+import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,9 +58,9 @@ public class FileDataManager implements DataManager
 
   @Override public void addTask(Task taskToAdd)
   {
-    ArrayList<Task> tasks = load().getTasks();
+    DataContainer dataContainer = load();
+    ArrayList<Task> tasks = dataContainer.getTasks();
     int idToSet = 1;
-    tasks.sort(Comparator.comparingInt(i -> i.getId()));
     for (Task task : tasks)
     {
       if (task.equals(taskToAdd))
@@ -71,5 +74,58 @@ public class FileDataManager implements DataManager
     }
     taskToAdd.setId(idToSet);
     tasks.add(taskToAdd);
+    save(dataContainer);
+  }
+
+  @Override public void deleteTask(int idToDelete)
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    tasks.remove(getTaskById(idToDelete,dataContainer));
+    save(dataContainer);
+  }
+
+  @Override public ArrayList<Task> getAllTasks()
+  {
+    return load().getTasks();
+  }
+
+  @Override public Task getTaskById(int idToGet, DataContainer dataContainer)
+  {
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    Task taskToGet = null;
+    for (Task task : tasks)
+    {
+      if (task.getId() == idToGet)
+      {
+        taskToGet = task;
+        break;
+      }
+    }
+    if (taskToGet == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return taskToGet;
+  }
+
+  @Override public void editTask(int idToEdit, Task editedTask)
+  {
+    deleteTask(idToEdit);
+    DataContainer dataContainer = load();
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    editedTask.setId(idToEdit);
+    tasks.add(editedTask);
+    save(dataContainer);
+  }
+
+  @Override public void completeTaskFromList(int id, Resident completedBy)
+  {
+    //TODO snak om vi skal en form for historik oprydning
+    DataContainer dataContainer = load();
+    Cloverfield cloverfield = dataContainer.getCloverfield();
+    Task task = getTaskById(id,dataContainer);
+    task.completeTask(completedBy, cloverfield);
+    save(dataContainer);
   }
 }
