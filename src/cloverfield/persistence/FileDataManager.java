@@ -72,7 +72,7 @@ public class FileDataManager implements DataManager
   {
     DataContainer dataContainer = load();
     ArrayList<Task> tasks = dataContainer.getTasks();
-    tasks.remove(getTaskById(idToDelete,dataContainer));
+    tasks.remove(getTaskById(idToDelete));
     save(dataContainer);
   }
 
@@ -81,8 +81,9 @@ public class FileDataManager implements DataManager
     return load().getTasks();
   }
 
-  @Override public Task getTaskById(int idToGet, DataContainer dataContainer)
+  @Override public Task getTaskById(int idToGet)
   {
+    DataContainer dataContainer = load();
     ArrayList<Task> tasks = dataContainer.getTasks();
     Task taskToGet = null;
     for (Task task : tasks)
@@ -115,7 +116,7 @@ public class FileDataManager implements DataManager
     //TODO snak om vi skal en form for historik oprydning
     DataContainer dataContainer = load();
     Cloverfield cloverfield = dataContainer.getCloverfield();
-    Task task = getTaskById(id,dataContainer);
+    Task task = getTaskById(id);
     task.completeTask(completedBy, cloverfield);
     save(dataContainer);
   }

@@ -15,12 +15,10 @@ public class ViewManager
   private static BorderPane mainLayout;
   private static String fxmlDirectoryPath = "/fxml/";
 
-  public static void init(Stage primaryStage, String initialView)
-      throws IOException
+  public static void init(Stage primaryStage, String initialView) throws IOException
   {
     BorderPane root = FXMLLoader.load(Objects.requireNonNull(
-        ViewManager.class.getResource(
-            fxmlDirectoryPath + initialView + ".fxml")));
+        ViewManager.class.getResource(fxmlDirectoryPath + initialView + ".fxml")));
     mainLayout = root;
     Scene scene = new Scene(root, 800, 600);
     primaryStage.setScene(scene);
@@ -33,8 +31,7 @@ public class ViewManager
     try
     {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(ViewManager.class.getResource(
-          fxmlDirectoryPath + viewName + ".fxml"));
+      loader.setLocation(ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
       Parent root = loader.load();
       Object controller = loader.getController();
       ControllerConfigurator.configure(controller);
@@ -43,8 +40,7 @@ public class ViewManager
     catch (IOException e)
     {
       e.printStackTrace();
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "cannot find view" + viewName);
+      Alert error = new Alert(Alert.AlertType.ERROR, "cannot find view" + viewName);
       error.show();
       throw new RuntimeException(e);
     }
@@ -52,21 +48,21 @@ public class ViewManager
 
   public static void showView(String viewName, String argument)
   {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(
-        ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
+
     try
     {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
       Parent root = loader.load();
       AcceptsStringArgument controller = loader.getController();
+      ControllerConfigurator.configure(controller);
       controller.setArgument(argument);
       mainLayout.setCenter(root);
     }
     catch (IOException e)
     {
       e.printStackTrace();
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "cannot find view" + viewName);
+      Alert error = new Alert(Alert.AlertType.ERROR, "cannot find view" + viewName);
       error.show();
       throw new RuntimeException(e);
     }
@@ -74,21 +70,20 @@ public class ViewManager
 
   public static void showView(String viewName, Object argument)
   {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(
-        ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
     try
     {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
       Parent root = loader.load();
       AcceptsObjectArgument controller = loader.getController();
+      ControllerConfigurator.configure(controller);
       controller.setArgument(argument);
       mainLayout.setCenter(root);
     }
     catch (IOException e)
     {
       e.printStackTrace();
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "cannot find view" + viewName);
+      Alert error = new Alert(Alert.AlertType.ERROR, "cannot find view" + viewName);
       error.show();
       throw new RuntimeException(e);
     }

@@ -1,5 +1,6 @@
 package cloverfield.presentation.controllers;
 
+import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
 import cloverfield.persistence.FileAccessException;
@@ -20,37 +21,32 @@ public class ManageTaskController
   public Button completeButton;
   public Button editButton;
   public Button backButton;
-  public TableColumn typeColumn;
-  public TableColumn descriptionColumn;
-  public TableColumn pointColumn;
-  public TableColumn statusTable;
-  public TableColumn reservedTable;
-  public TableColumn deleteColumn;
-  public TableView table;
-  public TableView taskTable;
-  public ComboBox typeDropdown;
+  public TableColumn<Task, String> typeColumn;
+  public TableColumn<Task, String> descriptionColumn;
+  public TableColumn<Task, Integer> pointColumn;
+  public TableColumn<Task, String> statusTable;
+  public TableColumn<Task, Resident> reservedTable;
+  public TableColumn<Task, String> deleteColumn;
+  public TableView<Task> table;
+  public TableView<Task> taskTable;
+  public ComboBox<String> typeDropdown;
   private DataManager dataManager;
   private FilteredList<Task> taskList;
 
   public void init(DataManager dataManager)
   {
     typeDropdown.getItems().addAll("Grøn", "Fælles", "Bytte");
-
     this.dataManager = dataManager;
+
     try
     {
       typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-      descriptionColumn.setCellValueFactory(
-          new PropertyValueFactory<>("description"));
-      pointColumn.setCellValueFactory(
-          new PropertyValueFactory<>("pointsGained"));
-      statusTable.setCellValueFactory(
-          new PropertyValueFactory<>("isCompleted"));
-      reservedTable.setCellValueFactory(
-          new PropertyValueFactory<>("reservedBy"));
+      descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+      pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
+      statusTable.setCellValueFactory(new PropertyValueFactory<>("isCompleted"));
+      reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
 
-      taskList = new FilteredList<>(
-          FXCollections.observableArrayList(dataManager.getAllTasks()),
+      taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
           task -> true);
       taskTable.setItems(taskList);
     }
@@ -73,8 +69,8 @@ public class ManageTaskController
 
   public void onTypeDropdown()
   {
-    String selected = typeDropdown.getValue().toString();
-    taskList.setPredicate(task->task.getType().equals(selected));
+    String selected = typeDropdown.getValue();
+    taskList.setPredicate(task -> task.getType().equals(selected));
   }
 
   public void onSearchByName(KeyEvent keyEvent)
@@ -88,9 +84,12 @@ public class ManageTaskController
 
   public void onCompleteButton(ActionEvent actionEvent)
   {
+    int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+    ViewManager.showView("CompleteTask", String.valueOf(selectedTask));
   }
 
   public void onEditButton(ActionEvent actionEvent)
   {
+
   }
 }
