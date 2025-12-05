@@ -16,8 +16,9 @@ public class Resident implements Serializable
   {
     this.name = name;
     activeTasks = new ArrayList<>();
-    active=true;
+    active = true;
   }
+
   public Resident(String name, int id, boolean active)
   {
     this.name = name;
@@ -72,6 +73,10 @@ public class Resident implements Serializable
 
   public void setPersonalPoints(int personalPoints)
   {
+    if (personalPoints < 0)
+    {
+      throw new InvalidTaskException("Points can´t be negative");
+    }
     this.personalPoints = personalPoints;
   }
 
@@ -86,22 +91,18 @@ public class Resident implements Serializable
     {
       pointsToAdd = (int) (multiplier * pointsToAdd);
     }
-    this.personalPoints += pointsToAdd;
+    personalPoints += pointsToAdd;
   }
-
 
   public void reducePoints(int pointsToRemove)
   {
-    if(personalPoints-pointsToRemove<0){
-      throw new InvalidTaskException("Points can´t be negative");
-    }
-    this.personalPoints-=pointsToRemove;
+    setPersonalPoints(getPersonalPoints()-pointsToRemove);
   }
 
+  // TODO Dette er for at listen i task ser pænt ud. Hvis toString skal bruges på en anden måde skal der tænkes en bedre løsning der
   @Override public String toString()
   {
-    return name + "{"+"id="+id+", active=" + active + ", activeTasks=" + activeTasks
-        + ", personalPoints=" + personalPoints + '}';
+    return name + " (point: " + personalPoints + ")";
   }
 
   @Override public boolean equals(Object o)

@@ -2,6 +2,7 @@ package cloverfield.persistence;
 
 import cloverfield.domain.*;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,8 +24,7 @@ public class FileDataManager implements DataManager
 
   public void save(DataContainer dataContainer) throws FileAccessException
   {
-    try (ObjectOutputStream output = new ObjectOutputStream(
-        new FileOutputStream(path.toFile())))
+    try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.toFile())))
     {
       output.writeObject(dataContainer);
     }
@@ -36,8 +36,7 @@ public class FileDataManager implements DataManager
 
   public DataContainer load() throws FileAccessException
   {
-    try (ObjectInputStream input = new ObjectInputStream(
-        new FileInputStream(path.toFile())))
+    try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path.toFile())))
     {
       return (DataContainer) input.readObject();
     }
@@ -111,13 +110,51 @@ public class FileDataManager implements DataManager
     save(dataContainer);
   }
 
-  @Override public void completeTaskFromList(int id, Resident completedBy)
+  @Override public void completeTaskFromList(int taskId, int residentId)
   {
-    //TODO snak om vi skal en form for historik oprydning
+    //TODO historik oprydning
     DataContainer dataContainer = load();
     Cloverfield cloverfield = dataContainer.getCloverfield();
-    Task task = getTaskById(id);
-    task.completeTask(completedBy, cloverfield);
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    Task taskToComplete = null;
+    for (Task taskToGet : tasks)
+    {
+      if (taskToGet.getId() == taskId)
+      {
+        taskToComplete = taskToGet;
+        break;
+      }
+    }
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    Resident residentToComplete = null;
+    for (Resident residentToGet : residents)
+    {
+      if (residentToGet.getId() == residentId)
+      {
+        residentToComplete = residentToGet;
+        break;
+      }
+    }
+
+    if (taskToComplete instanceof Barter)
+    {
+      Resident createdBy = null;
+      int createdById = ((Barter) taskToComplete).getCreatedBy().getId();
+      for (Resident residentToGet : residents)
+      {
+        if (residentToGet.getId() == createdById)
+        {
+          createdBy = residentToGet;
+          break;
+        }
+      }
+      if (createdBy == null)
+      {
+        throw new InvalidTaskException("Kan ikke finde oprettet af ved bytteopgave");
+      }
+      createdBy.reducePoints(taskToComplete.getPointsGained());
+    }
+    taskToComplete.completeTask(residentToComplete, cloverfield);
     save(dataContainer);
   }
 
@@ -147,7 +184,6 @@ public class FileDataManager implements DataManager
     }
     return resident;
   }
-
 
   @Override public void addResident(Resident residentToAdd)
   {
@@ -187,6 +223,4 @@ public class FileDataManager implements DataManager
   {
 
   }
-
-
 }

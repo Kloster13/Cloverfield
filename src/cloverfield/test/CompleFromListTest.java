@@ -40,7 +40,7 @@ public class CompleFromListTest
         System.out.println(don);
         System.out.println("------------------");
         System.out.println(task);
-        dm.completeTaskFromList(task.getId(),don);
+        dm.completeTaskFromList(task.getId(),don.getId());
         System.out.println(task);
       }
     }

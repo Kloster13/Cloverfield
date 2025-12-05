@@ -66,7 +66,7 @@
                                 <TableColumn fx:id="typeColumn" prefWidth="67.0" text="Type" />
                                 <TableColumn fx:id="descriptionColumn" prefWidth="209.0" text="Beskrivelse" />
                                 <TableColumn fx:id="pointColumn" minWidth="0.0" text="Point" />
-                                <TableColumn fx:id="statusTable" prefWidth="94.0" text="Aktiv" />
+                                <TableColumn fx:id="statusTable" prefWidth="94.0" text="Fuldført" />
                                 <TableColumn fx:id="reservedTable" prefWidth="93.0" text="Reserveret af" />
                         <TableColumn fx:id="deleteColumn" prefWidth="66.0" text="Slet" />
                             </columns>

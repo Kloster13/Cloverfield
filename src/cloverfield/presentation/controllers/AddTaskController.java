@@ -10,21 +10,21 @@ import javafx.scene.layout.HBox;
 
 public class AddTaskController
 {
-  public ComboBox typeInput;
-  public ComboBox reservedByInput;
+  public ComboBox<String> typeInput;
+  public ComboBox<Resident> reservedByInput;
   public TextArea descriptionInput;
   public Button addTaskButton;
   public Button cancelButton;
-  public Spinner pointInput;
+  public Spinner<Integer> pointInput;
   public Label statusLabel;
-  public ComboBox createdBy;
+  public ComboBox<Resident> createdBy;
   private DataManager dataManager;
 
   public void init(DataManager dataManager)
   {
     this.dataManager = dataManager;
     typeInput.getItems().addAll("Grøn", "Fælles", "Bytte");
-    createdBy.getItems().addAll("Bob", "Don"); //TODO
+    createdBy.getItems().addAll(dataManager.getAllResidents());
 
     //Spinner
     pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
@@ -36,8 +36,6 @@ public class AddTaskController
 
   public void onTaskTypeDropdown()
   {
-    String taskType = typeInput.getValue().toString();
-    statusLabel.setText(taskType);
   }
 
   public void onReservedBy()
@@ -46,21 +44,15 @@ public class AddTaskController
 
   public void onAddTasKButton()
   {
-    String taskType = typeInput.getValue().toString();
+    String taskType = typeInput.getValue();
     String descriptionInputText = descriptionInput.getText();
-    int pointsValue = (int) pointInput.getValue();
-    //TODO add the resident list - skal bruges både i reserved by og created by . VIGTIG!!
-    Resident dummy = null;
+    int pointsValue = pointInput.getValue();
+    Resident createdByValue = null;
     if (taskType.equals("Bytte"))
     {
-      String createdByValue = createdBy.getValue()
-          .toString(); //TODO det skal ændres. Starten skal initialisere listen af residents
-      dummy = new Resident(createdByValue); // change!!!!
+      createdByValue = createdBy.getValue();
     }
-    else
-    {
 
-    }
     Task task = null;
     try
     {
@@ -73,12 +65,12 @@ public class AddTaskController
           task = new Collective(descriptionInputText, pointsValue);
           break;
         case "Bytte":
-          task = new Barter(descriptionInputText, pointsValue, dummy); //Change
+          task = new Barter(descriptionInputText, pointsValue, createdByValue);
           break;
       }
       ViewManager.showView("TaskConfirmation", task);
     }
-    catch (InvalidTaskException e)
+    catch (InvalidTaskException |InvalidResidentException e)
     {
       statusLabel.setText(e.getMessage());
     }
@@ -87,7 +79,7 @@ public class AddTaskController
 
   public void onCancelButton(ActionEvent actionEvent)
   {
-    ViewManager.showView("Home");
+    ViewManager.showView("ManageTask");
   }
 
   public void onCreatedBy(ActionEvent actionEvent)

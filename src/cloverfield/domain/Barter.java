@@ -29,7 +29,6 @@ public class Barter extends Task
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
     completedBy.addPoints(super.getPointsGained(), cloverfield.getActiveMultiplier());
-    createdBy.reducePoints(super.getPointsGained());
   }
 
   @Override public boolean equals(Object o)

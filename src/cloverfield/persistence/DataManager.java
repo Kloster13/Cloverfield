@@ -14,7 +14,7 @@ public interface DataManager
   public abstract ArrayList<Task> getAllTasks();
   public abstract Task getTaskById(int idToGet);
   public abstract void editTask(int id,Task editedTask);
-  public abstract void completeTaskFromList(int id, Resident completedBy);
+  public abstract void completeTaskFromList(int taskId, int completedById);
   // Cloverfield
   public abstract Cloverfield loadCloverfield(); //TODO ikke sikker på at den skal bruges
   // Resident

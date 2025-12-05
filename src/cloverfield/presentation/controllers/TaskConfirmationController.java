@@ -2,6 +2,7 @@ package cloverfield.presentation.controllers;
 
 import cloverfield.domain.Barter;
 import cloverfield.domain.Green;
+import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsObjectArgument;
@@ -21,6 +22,7 @@ public class TaskConfirmationController implements AcceptsObjectArgument
   public Button cancelButton;
   public Button confirmButton;
   private DataManager dataManager;
+  private Task task;
 
   public void init(DataManager dataManager)
   {
@@ -29,7 +31,7 @@ public class TaskConfirmationController implements AcceptsObjectArgument
 
   @Override public void setArgument(Object argument)
   {
-    Task task = (Task) argument;
+    this.task = (Task) argument;
     if(task.getType().equals("Bytte"))
     {
       task = (Barter) argument;
@@ -37,7 +39,6 @@ public class TaskConfirmationController implements AcceptsObjectArgument
     else
     {
       task = (Task) argument;
-      System.out.println(task);
     }
 
     typeDisplay.setText(task.getType());
@@ -49,17 +50,18 @@ public class TaskConfirmationController implements AcceptsObjectArgument
     }
     if (task instanceof Barter)
     {
-     createdByDisplay.setText(((Barter) task).getCreatedBy().getName());
+     createdByDisplay.setText(((Barter)task).getCreatedBy().getName());
     }
   }
 
   public void onConfirmButton()
   {
+    dataManager.addTask(task);
+    ViewManager.showView("ManageTask");
   }
 
   public void onCancelButton()
   {
-    ViewManager.showView("AddTask");
+    ViewManager.showView("AddTask"); //TODO ved overskud skal denne holde værdier - lav prio
   }
-
 }
