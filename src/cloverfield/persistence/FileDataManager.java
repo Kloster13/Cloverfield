@@ -2,6 +2,7 @@ package cloverfield.persistence;
 
 import cloverfield.domain.*;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -120,4 +121,50 @@ public class FileDataManager implements DataManager
     task.completeTask(completedBy, cloverfield);
     save(dataContainer);
   }
+
+  // Cloverfield
+  @Override public Cloverfield loadCloverfield()
+  {
+    return load().getCloverfield();
+  }
+
+  // Resident
+  @Override public void addResident(Resident residentToAdd)
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Resident> residents = dataContainer.getResidents();
+
+    int idToSet = 1;
+    for (Resident resident : residents)
+    {
+      if (resident.equals(residentToAdd))
+      {
+        throw new InvalidResidentException("Resident already in list");
+      }
+      if (resident.getId() >= idToSet)
+      {
+        idToSet = resident.getId() + 1;
+      }
+    }
+    residentToAdd.setId(idToSet);
+    residents.add(residentToAdd);
+    save(dataContainer);
+  }
+
+  @Override public void deleteResident(int idToDelete)
+  {
+
+  }
+
+  @Override public ArrayList<Resident> getAllResidents()
+  {
+    return load().getResidents();
+  }
+
+  @Override public void editResident(int id, Resident editedResident)
+  {
+
+  }
+
+
 }

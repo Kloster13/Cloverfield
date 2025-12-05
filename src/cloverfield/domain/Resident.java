@@ -28,6 +28,51 @@ public class Resident implements Serializable
     return name;
   }
 
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
+  }
+
+  public boolean isActive()
+  {
+    return active;
+  }
+
+  public void setActive(boolean active)
+  {
+    this.active = active;
+  }
+
+  public ArrayList<Task> getActiveTasks()
+  {
+    return activeTasks;
+  }
+
+  public void setActiveTasks(ArrayList<Task> activeTasks)
+  {
+    this.activeTasks = activeTasks;
+  }
+
+  public int getPersonalPoints()
+  {
+    return personalPoints;
+  }
+
+  public void setPersonalPoints(int personalPoints)
+  {
+    this.personalPoints = personalPoints;
+  }
+
   public void addPoints(int pointsToAdd)
   {
     this.personalPoints += pointsToAdd;
@@ -41,6 +86,7 @@ public class Resident implements Serializable
     }
     this.personalPoints += pointsToAdd;
   }
+
 
   public void reducePoints(int pointsToRemove)
   {
