@@ -2,6 +2,7 @@ package cloverfield.presentation.controllers;
 
 import cloverfield.presentation.core.ViewManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class MainViewController
@@ -19,7 +20,10 @@ public class MainViewController
     ViewManager.showView("ManageTask");
   }
 
-  public void onGreenPoints(ActionEvent actionEvent)
-  {
-  }
-}
+  public void onGreenPoints(ActionEvent actionEvent) {
+      System.out.println(">> onGreenPoints kaldt - loader Cloverfield");
+      ViewManager.showView("Cloverfield");
+
+
+
+
