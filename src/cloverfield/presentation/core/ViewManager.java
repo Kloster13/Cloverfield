@@ -71,4 +71,26 @@ public class ViewManager
       throw new RuntimeException(e);
     }
   }
+
+  public static void showView(String viewName, Object argument)
+  {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(
+        ViewManager.class.getResource(fxmlDirectoryPath + viewName + ".fxml"));
+    try
+    {
+      Parent root = loader.load();
+      AcceptsObjectArgument controller = loader.getController();
+      controller.setArgument(argument);
+      mainLayout.setCenter(root);
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+      Alert error = new Alert(Alert.AlertType.ERROR,
+          "cannot find view" + viewName);
+      error.show();
+      throw new RuntimeException(e);
+    }
+  }
 }

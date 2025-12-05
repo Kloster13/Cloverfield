@@ -8,6 +8,7 @@ public class Green extends Task
   public Green(String description, int pointsGained)
   {
     super(description, pointsGained);
+    super.setType("Grøn");
   }
 
   //TODO overvej om denne skal være her

@@ -22,6 +22,12 @@ public class Resident implements Serializable
     this.active = active;
     activeTasks = new ArrayList<>();
   }
+
+  public String getName()
+  {
+    return name;
+  }
+
   public void addPoints(int pointsToAdd)
   {
     this.personalPoints += pointsToAdd;

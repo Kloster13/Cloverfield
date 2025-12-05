@@ -73,6 +73,16 @@ public abstract class Task implements Serializable
     this.reservedBy = reservedBy;
   }
 
+  public String getType()
+  {
+    return type;
+  }
+
+  public boolean getIsCompleted()
+  {
+    return isCompleted;
+  }
+
   public void setDescription(String description)
   {
     this.description = description;

@@ -11,7 +11,16 @@ public class Barter extends Task
   {
     super(description, pointsGained);
     super.setType("Bytte");
-    this.createdBy=createdBy;
+    if (createdBy == null)
+    {
+      throw new InvalidTaskException("Bytteopgaver skal inkludere 'Oprettet af' ");
+    }
+    this.createdBy = createdBy;
+  }
+
+  public Resident getCreatedBy()
+  {
+    return createdBy;
   }
 
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
@@ -19,7 +28,7 @@ public class Barter extends Task
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
-    completedBy.addPoints(super.getPointsGained(),cloverfield.getActiveMultiplier());
+    completedBy.addPoints(super.getPointsGained(), cloverfield.getActiveMultiplier());
     createdBy.reducePoints(super.getPointsGained());
   }
 
