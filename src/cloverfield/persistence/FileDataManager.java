@@ -2,7 +2,6 @@ package cloverfield.persistence;
 
 import cloverfield.domain.*;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -129,6 +128,27 @@ public class FileDataManager implements DataManager
   }
 
   // Resident
+  @Override public Resident getResidentById(int idToGet)
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    Resident resident = null;
+    for (Resident residentToGet : residents)
+    {
+      if (residentToGet.getId() == idToGet)
+      {
+        resident = residentToGet;
+        break;
+      }
+    }
+    if (resident == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return resident;
+  }
+
+
   @Override public void addResident(Resident residentToAdd)
   {
     DataContainer dataContainer = load();
@@ -153,7 +173,9 @@ public class FileDataManager implements DataManager
 
   @Override public void deleteResident(int idToDelete)
   {
-
+    DataContainer dataContainer = load();
+    dataContainer.getResidents().remove(getResidentById(idToDelete));
+    save(dataContainer);
   }
 
   @Override public ArrayList<Resident> getAllResidents()

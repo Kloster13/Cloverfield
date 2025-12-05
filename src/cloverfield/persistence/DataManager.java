@@ -18,6 +18,7 @@ public interface DataManager
   // Cloverfield
   public abstract Cloverfield loadCloverfield(); //TODO ikke sikker på at den skal bruges
   // Resident
+  public abstract Resident getResidentById(int id);
   public abstract void addResident(Resident resident);
   public abstract void deleteResident(int idToDelete);
   public abstract ArrayList<Resident> getAllResidents();

@@ -2,6 +2,7 @@ package cloverfield.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Resident implements Serializable
 {
@@ -15,6 +16,7 @@ public class Resident implements Serializable
   {
     this.name = name;
     activeTasks = new ArrayList<>();
+    active=true;
   }
   public Resident(String name, int id, boolean active)
   {
@@ -98,7 +100,21 @@ public class Resident implements Serializable
 
   @Override public String toString()
   {
-    return name + "{ " + "active=" + active + ", activeTasks=" + activeTasks
+    return name + "{"+"id="+id+", active=" + active + ", activeTasks=" + activeTasks
         + ", personalPoints=" + personalPoints + '}';
+  }
+
+  @Override public boolean equals(Object o)
+  {
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Resident resident = (Resident) o;
+    return personalPoints == resident.personalPoints && Objects.equals(name, resident.name)
+        && Objects.equals(activeTasks, resident.activeTasks);
+  }
+
+  @Override public int hashCode()
+  {
+    return Objects.hash(name, activeTasks, personalPoints);
   }
 }
