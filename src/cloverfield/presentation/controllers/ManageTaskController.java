@@ -30,31 +30,28 @@ public class ManageTaskController
   public TableView<Task> table;
   public TableView<Task> taskTable;
   public ComboBox<String> typeDropdown;
+  public ComboBox<Boolean> statusDropdown;
   private DataManager dataManager;
   private FilteredList<Task> taskList;
+  private String typeFilter;
+  private boolean completedFilter;
 
   public void init(DataManager dataManager)
   {
     typeDropdown.getItems().addAll("Grøn", "Fælles", "Bytte");
+    statusDropdown.getItems().addAll(true, false);
+
     this.dataManager = dataManager;
 
-    try
-    {
-      typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-      descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-      pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
-      statusTable.setCellValueFactory(new PropertyValueFactory<>("isCompleted"));
-      reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
+    statusTable.setCellValueFactory(new PropertyValueFactory<>("isCompleted"));
+    reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
 
-      taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
-          task -> true);
-      taskTable.setItems(taskList);
-    }
-    catch (FileAccessException e)
-    {
-      Alert error = new Alert(Alert.AlertType.ERROR, e.getMessage());
-      error.show();
-    }
+    taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
+        task -> !task.getIsCompleted());
+    taskTable.setItems(taskList);
   }
 
   public void onBack()
@@ -62,33 +59,43 @@ public class ManageTaskController
     ViewManager.showView("Home");
   }
 
-  public void onStatusDropdown(ActionEvent actionEvent)
+  public void onStatusDropdown()
   {
-
+    completedFilter = statusDropdown.getValue();
+    if (typeFilter == null)
+    {
+      taskList.setPredicate(task -> task.getIsCompleted() == completedFilter);
+    }
+    else
+    {
+      taskList.setPredicate(
+          task -> task.getType().equals(typeFilter) && task.getIsCompleted() == completedFilter);
+    }
   }
 
   public void onTypeDropdown()
   {
-    String selected = typeDropdown.getValue();
-    taskList.setPredicate(task -> task.getType().equals(selected));
+    typeFilter = typeDropdown.getValue();
+    taskList.setPredicate(
+        task -> task.getType().equals(typeFilter) && task.getIsCompleted() == completedFilter);
   }
 
-  public void onSearchByName(KeyEvent keyEvent)
+  public void onSearchByName()
   {
   }
 
-  public void onAddButton(ActionEvent actionEvent)
+  public void onAddButton()
   {
     ViewManager.showView("AddTask");
   }
 
-  public void onCompleteButton(ActionEvent actionEvent)
+  public void onCompleteButton()
   {
     int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
     ViewManager.showView("CompleteTask", String.valueOf(selectedTask));
   }
 
-  public void onEditButton(ActionEvent actionEvent)
+  public void onEditButton()
   {
 
   }
