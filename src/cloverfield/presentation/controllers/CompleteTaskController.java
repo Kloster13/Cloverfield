@@ -1,5 +1,6 @@
 package cloverfield.presentation.controllers;
 
+import cloverfield.domain.Barter;
 import cloverfield.domain.InvalidTaskException;
 import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
@@ -21,6 +22,7 @@ public class CompleteTaskController implements AcceptsStringArgument
   public Button cancelButton;
   public Button completeTaskButton;
   public Label statusLabel;
+  public Label displayCreatedBy;
   private DataManager dataManager;
   private int taskId;
 
@@ -38,6 +40,10 @@ public class CompleteTaskController implements AcceptsStringArgument
     displayType.setText(task.getType());
     displayDescription.setText(task.getDescription());
     displayPoint.setText(Integer.toString(task.getPointsGained()));
+    if (task instanceof Barter)
+    {
+      displayCreatedBy.setText(((Barter) task).getCreatedBy().getName());
+    }
 
     System.out.println(task.getClass());
   }

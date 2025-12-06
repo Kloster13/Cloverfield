@@ -34,19 +34,22 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="36.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="36.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Type af opgave" textAlignment="CENTER" GridPane.halignment="RIGHT" />
-                  <Label text="Beskrivelse" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                  <Label text="Pointværdi" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                  <TextArea fx:id="displayDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                  <Label text="Beskrivelse" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                  <Label text="Pointværdi" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                  <TextArea fx:id="displayDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                   <Label fx:id="displayType" prefHeight="17.0" prefWidth="150.0" text="type" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                  <ComboBox fx:id="createdByDropdown" onAction="#onCreatedByDropdown" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-                  <Label fx:id="displayPoint" prefHeight="17.0" prefWidth="150.0" text="Point" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="178.0" text="Vælg beboer til færdiggørelse*" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="createdByDropdown" onAction="#onCreatedByDropdown" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                  <Label fx:id="displayPoint" prefHeight="17.0" prefWidth="150.0" text="Point" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="178.0" text="Vælg beboer til færdiggørelse*" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Lavet af" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                  <Label fx:id="displayCreatedBy" alignment="CENTER" contentDisplay="CENTER" text="Kløverly" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <VBox.margin>
                   <Insets left="120.0" right="120.0" top="80.0" />

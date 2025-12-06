@@ -46,6 +46,84 @@ public class FileDataManager implements DataManager
     }
   }
 
+  private Resident getResidentByID(DataContainer dataContainer, int idToGet)
+  {
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    Resident residentToGet = null;
+    for (Resident resident : residents)
+    {
+      if (resident.getId() == idToGet)
+      {
+        residentToGet = resident;
+        break;
+      }
+    }
+    if (residentToGet == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return residentToGet;
+  }
+
+  @Override public Resident getResidentById(int idToGet) //TODO hvis vi aldrig bruger denne version skal den fjernes
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    Resident resident = null;
+    for (Resident residentToGet : residents)
+    {
+      if (residentToGet.getId() == idToGet)
+      {
+        resident = residentToGet;
+        break;
+      }
+    }
+    if (resident == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return resident;
+  }
+
+  private Task getTaskById(DataContainer dataContainer, int idToGet)
+  {
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    Task taskToGet = null;
+    for (Task task : tasks)
+    {
+      if (task.getId() == idToGet)
+      {
+        taskToGet = task;
+        break;
+      }
+    }
+    if (taskToGet == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return taskToGet;
+  }
+
+  @Override public Task getTaskById(int idToGet)
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Task> tasks = dataContainer.getTasks();
+    Task taskToGet = null;
+    for (Task task : tasks)
+    {
+      if (task.getId() == idToGet)
+      {
+        taskToGet = task;
+        break;
+      }
+    }
+    if (taskToGet == null)
+    {
+      throw new InvalidTaskException("Can't find task in list");
+    }
+    return taskToGet;
+  }
+
   @Override public void addTask(Task taskToAdd)
   {
     DataContainer dataContainer = load();
@@ -80,26 +158,6 @@ public class FileDataManager implements DataManager
     return load().getTasks();
   }
 
-  @Override public Task getTaskById(int idToGet)
-  {
-    DataContainer dataContainer = load();
-    ArrayList<Task> tasks = dataContainer.getTasks();
-    Task taskToGet = null;
-    for (Task task : tasks)
-    {
-      if (task.getId() == idToGet)
-      {
-        taskToGet = task;
-        break;
-      }
-    }
-    if (taskToGet == null)
-    {
-      throw new InvalidTaskException("Can't find task in list");
-    }
-    return taskToGet;
-  }
-
   @Override public void editTask(int idToEdit, Task editedTask)
   {
     deleteTask(idToEdit);
@@ -116,74 +174,26 @@ public class FileDataManager implements DataManager
     DataContainer dataContainer = load();
     Cloverfield cloverfield = dataContainer.getCloverfield();
     ArrayList<Task> tasks = dataContainer.getTasks();
-    Task taskToComplete = null;
-    for (Task taskToGet : tasks)
-    {
-      if (taskToGet.getId() == taskId)
-      {
-        taskToComplete = taskToGet;
-        break;
-      }
-    }
     ArrayList<Resident> residents = dataContainer.getResidents();
-    Resident residentToComplete = null;
-    for (Resident residentToGet : residents)
-    {
-      if (residentToGet.getId() == residentId)
-      {
-        residentToComplete = residentToGet;
-        break;
-      }
-    }
+    Task taskToComplete = getTaskById(dataContainer, taskId);
+    Resident residentToComplete = getResidentByID(dataContainer, residentId);
 
     if (taskToComplete instanceof Barter)
     {
-      Resident createdBy = null;
       int createdById = ((Barter) taskToComplete).getCreatedBy().getId();
-      for (Resident residentToGet : residents)
-      {
-        if (residentToGet.getId() == createdById)
-        {
-          createdBy = residentToGet;
-          break;
-        }
-      }
-      if (createdBy == null)
-      {
-        throw new InvalidTaskException("Kan ikke finde oprettet af ved bytteopgave");
-      }
+      Resident createdBy = getResidentByID(dataContainer, createdById);
       createdBy.reducePoints(taskToComplete.getPointsGained());
     }
     taskToComplete.completeTask(residentToComplete, cloverfield);
     save(dataContainer);
   }
-
   // Cloverfield
+
   @Override public Cloverfield loadCloverfield()
   {
     return load().getCloverfield();
   }
-
   // Resident
-  @Override public Resident getResidentById(int idToGet)
-  {
-    DataContainer dataContainer = load();
-    ArrayList<Resident> residents = dataContainer.getResidents();
-    Resident resident = null;
-    for (Resident residentToGet : residents)
-    {
-      if (residentToGet.getId() == idToGet)
-      {
-        resident = residentToGet;
-        break;
-      }
-    }
-    if (resident == null)
-    {
-      throw new InvalidTaskException("Can't find task in list");
-    }
-    return resident;
-  }
 
   @Override public void addResident(Resident residentToAdd)
   {
@@ -210,7 +220,8 @@ public class FileDataManager implements DataManager
   @Override public void deleteResident(int idToDelete)
   {
     DataContainer dataContainer = load();
-    dataContainer.getResidents().remove(getResidentById(idToDelete));
+    Resident resident = getResidentByID(dataContainer, idToDelete);
+    dataContainer.getResidents().remove(resident);
     save(dataContainer);
   }
 
@@ -221,6 +232,5 @@ public class FileDataManager implements DataManager
 
   @Override public void editResident(int id, Resident editedResident)
   {
-
   }
 }

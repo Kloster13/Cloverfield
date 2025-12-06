@@ -43,15 +43,39 @@ public class ManageTaskController
 
     this.dataManager = dataManager;
 
+    taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
+        task -> !task.getIsCompleted());
+    taskTable.setItems(taskList);
+
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
     statusTable.setCellValueFactory(new PropertyValueFactory<>("isCompleted"));
     reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
+    deleteColumn.setCellFactory(col -> {
+      return new TableCell<Task, String>()
+      {
+        private final Button deleteButton = new Button("Slet");
 
-    taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
-        task -> !task.getIsCompleted());
-    taskTable.setItems(taskList);
+        {
+          deleteButton.setOnAction(event -> {
+            int rowIndex = getIndex();
+            if (rowIndex < 0 || rowIndex >= getTableView().getItems().size())
+              return;
+
+            int idToDelete = getTableView().getItems().get(getIndex()).getId();
+            ViewManager.showView("DeleteTask", String.valueOf(idToDelete));
+          });
+        }
+
+        @Override protected void updateItem(String item, boolean empty)
+        {
+          super.updateItem(item, empty);
+          setGraphic(empty ? null : deleteButton);
+          setText(null);
+        }
+      };
+    });
   }
 
   public void onBack()
