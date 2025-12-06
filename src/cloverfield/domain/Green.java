@@ -26,6 +26,11 @@ public class Green extends Task
     super.setIsComplete(true);
   }
 
+  @Override public Task copy()
+  {
+    return new Green(getDescription(),getPointsGained());
+  }
+
   @Override public boolean equals(Object o)
   {
     if (this == o)

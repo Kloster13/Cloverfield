@@ -31,6 +31,11 @@ public class Barter extends Task
     completedBy.addPoints(super.getPointsGained(), cloverfield.getActiveMultiplier());
   }
 
+  @Override public Task copy()
+  {
+    return new Barter(getDescription(),getPointsGained(),getCreatedBy());
+  }
+
   @Override public boolean equals(Object o)
   {
     if (o == null || getClass() != o.getClass())

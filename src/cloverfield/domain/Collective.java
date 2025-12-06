@@ -17,6 +17,12 @@ public class Collective extends Task
     super.setIsComplete(true);
     cloverfield.addPoints(super.getPointsGained());
   }
+
+  @Override public Task copy()
+  {
+    return new Collective(getDescription(),getPointsGained());
+  }
+
   @Override public boolean equals(Object o)
   {
     if (this == o)

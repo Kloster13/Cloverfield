@@ -71,16 +71,15 @@ public class FileDataManager implements DataManager
     resident.addReserved(taskToReserve);
   }
 
-  private void removeTaskFromResident(DataContainer dataContainer, int taskToRemove,
-      int residentToReserve)
+  private void removeTaskFromResident(DataContainer dataContainer, int taskToRemove)
   {
-    Resident resident = getResidentByID(dataContainer, residentToReserve);
-    Task task = getTaskById(taskToRemove);
+    Task task = getTaskById(dataContainer, taskToRemove);
     if (task.getReservedBy() != null)
     {
+      int id = task.getReservedBy().getId();
+      Resident resident = getResidentByID(dataContainer, id);
       resident.removeReserved(task);
     }
-    resident.removeReserved(task);
   }
 
   @Override public Resident getResidentById(
@@ -173,7 +172,7 @@ public class FileDataManager implements DataManager
     DataContainer dataContainer = load();
     ArrayList<Task> tasks = dataContainer.getTasks();
     Task task = getTaskById(idToDelete);
-    removeTaskFromResident(dataContainer, idToDelete, task.getReservedBy().getId());
+    removeTaskFromResident(dataContainer, idToDelete);
     tasks.remove(task);
     save(dataContainer);
   }
@@ -190,16 +189,25 @@ public class FileDataManager implements DataManager
     ArrayList<Task> tasks = dataContainer.getTasks();
     editedTask.setId(idToEdit);
     tasks.add(editedTask);
+    addTaskToResident(dataContainer, editedTask, editedTask.getReservedBy().getId());
     save(dataContainer);
   }
 
   @Override public void completeTaskFromList(int taskId, int residentId)
   {
-    //TODO historik oprydning
+    //TODO historik oprydning - lav prio
     DataContainer dataContainer = load();
     Cloverfield cloverfield = dataContainer.getCloverfield();
     Task taskToComplete = getTaskById(dataContainer, taskId);
     Resident residentToComplete = getResidentByID(dataContainer, residentId);
+
+    Task taskCopy = null;
+    if (taskToComplete instanceof Collective || taskToComplete instanceof Green)
+    {
+      taskCopy = taskToComplete.copy();
+      taskCopy.setReservedBy(null);
+      addTask(taskCopy);
+    }
 
     if (taskToComplete instanceof Barter)
     {
@@ -207,13 +215,16 @@ public class FileDataManager implements DataManager
       Resident createdBy = getResidentByID(dataContainer, createdById);
       createdBy.reducePoints(taskToComplete.getPointsGained());
     }
-    System.out.println(taskId);
-    System.out.println(taskToComplete.getReservedBy().getId());
-    removeTaskFromResident(dataContainer, taskId, taskToComplete.getReservedBy().getId());
-
+    removeTaskFromResident(dataContainer, taskId);
     taskToComplete.completeTask(residentToComplete, cloverfield);
 
     save(dataContainer);
+
+    if (taskCopy != null)
+    {
+      addTask(taskCopy);
+      System.out.println(taskCopy);
+    }
   }
 
   @Override public void reservedTask(int residentId, Task taskToReserve)

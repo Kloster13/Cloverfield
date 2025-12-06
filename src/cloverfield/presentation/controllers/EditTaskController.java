@@ -1,8 +1,6 @@
 package cloverfield.presentation.controllers;
 
-import cloverfield.domain.Barter;
-import cloverfield.domain.Resident;
-import cloverfield.domain.Task;
+import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.AcceptsStringArgument;
@@ -10,6 +8,8 @@ import cloverfield.presentation.core.ViewManager;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+
+import javax.swing.text.View;
 
 public class EditTaskController implements AcceptsStringArgument
 {
@@ -19,6 +19,7 @@ public class EditTaskController implements AcceptsStringArgument
   public Spinner<Integer> pointInput;
   public ComboBox<Resident> createdBy;
   public Button addTaskButton;
+  public Label statusLabel;
   private DataManager dataManager;
   private Task taskToShow;
 
@@ -85,5 +86,40 @@ public class EditTaskController implements AcceptsStringArgument
 
   public void onAddTasKButton()
   {
+    String taskType = typeInput.getValue();
+    String descriptionInputText = descriptionInput.getText();
+    int pointsValue = pointInput.getValue();
+    Resident createdByValue = null;
+    if (taskType.equals("Bytte"))
+    {
+      createdByValue = createdBy.getValue();
+    }
+
+    Task task = null;
+    try
+    {
+      switch (taskType)
+      {
+        case "Grøn":
+          task = new Green(descriptionInputText, pointsValue);
+          break;
+        case "Fælles":
+          task = new Collective(descriptionInputText, pointsValue);
+          break;
+        case "Bytte":
+          task = new Barter(descriptionInputText, pointsValue, createdByValue);
+          break;
+      }
+      if (reservedByInput.getValue() != null)
+      {
+        task.setReservedBy(reservedByInput.getValue());
+      }
+      dataManager.editTask(taskToShow.getId(), task);
+      ViewManager.showView("ManageTask");
+    }
+    catch (InvalidTaskException | InvalidResidentException e)
+    {
+      statusLabel.setText(e.getMessage());
+    }
   }
 }

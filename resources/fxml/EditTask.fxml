@@ -19,7 +19,7 @@
    <children>
       <VBox prefHeight="550.0" prefWidth="650.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="660.0" text="Opret opgave" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="660.0" text="Rediger opgave" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
                </font>
@@ -59,7 +59,7 @@
             <HBox alignment="CENTER" prefHeight="31.0" prefWidth="650.0" spacing="20.0">
                <children>
                   <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onCancelButton" text="Fortryd" />
-                  <Button fx:id="addTaskButton" alignment="CENTER" mnemonicParsing="false" onAction="#onAddTasKButton" text="Tilføj Opgave!">
+                  <Button fx:id="addTaskButton" alignment="CENTER" mnemonicParsing="false" onAction="#onAddTasKButton" text="Opdater opgave">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

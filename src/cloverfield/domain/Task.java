@@ -37,6 +37,7 @@ public abstract class Task implements Serializable
   }
 
   public abstract void completeTask(Resident completedBy, Cloverfield cloverfield);
+  public abstract Task copy();
 
   public String getDescription()
   {
@@ -122,7 +123,7 @@ public abstract class Task implements Serializable
   {
     return "Task{" + "ID=" + id + ", description='" + description + '\'' + ", pointsGained="
         + pointsGained + ", isCompleted=" + isCompleted + ", completedBy=" + completedBy
-        + ", completedDate=" + completedDate + '}';
+        + ", completedDate=" + completedDate + ", reservedBy=" + reservedBy + '}';
   }
 
   @Override public boolean equals(Object o)
@@ -130,7 +131,7 @@ public abstract class Task implements Serializable
     if (o == null || getClass() != o.getClass())
       return false;
     Task task = (Task) o;
-    return pointsGained == task.pointsGained && isCompleted == task.isCompleted && Objects.equals(
+    return id== task.id&& pointsGained == task.pointsGained && isCompleted == task.isCompleted && Objects.equals(
         description, task.description) && Objects.equals(completedBy, task.completedBy)
         && Objects.equals(completedDate, task.completedDate);
   }

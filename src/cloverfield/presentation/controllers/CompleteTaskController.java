@@ -37,8 +37,6 @@ public class CompleteTaskController implements AcceptsStringArgument
     {
       displayCreatedBy.setText(((Barter) task).getCreatedBy().getName());
     }
-
-    System.out.println(task.getClass());
   }
 
   public void onCompletedByDropdown()
