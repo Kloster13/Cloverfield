@@ -17,6 +17,7 @@ public class ControllerConfigurator
       case TaskConfirmationController ctrl -> ctrl.init(getDataManager());
       case CompleteTaskController ctrl ->ctrl.init(getDataManager());
       case DeleteTaskController ctrl ->ctrl.init(getDataManager());
+      case EditTaskController ctrl->ctrl.init(getDataManager());
       default -> throw new RuntimeException(
           "Controller of type '" + controller.getClass().getSimpleName()
               + "' not valid.");

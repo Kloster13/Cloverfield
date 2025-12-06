@@ -28,7 +28,7 @@ public abstract class Task implements Serializable
       throw new InvalidTaskException("Must include description");
     }
     this.description = description;
-    if (pointsGained<0)
+    if (pointsGained < 0)
     {
       throw new InvalidTaskException("Points can't be negative");
     }
@@ -102,8 +102,10 @@ public abstract class Task implements Serializable
   {
     this.completedDate = completedDate;
   }
-  protected void setType(String type){
-    this.type=type;
+
+  protected void setType(String type)
+  {
+    this.type = type;
   }
 
   public void setId(int id)
@@ -118,9 +120,9 @@ public abstract class Task implements Serializable
 
   @Override public String toString()
   {
-    return "Task{" +"ID="+id+ ", description='" + description + '\'' + ", pointsGained="
-        + pointsGained + ", isCompleted=" + isCompleted + ", completedBy="
-        + completedBy + ", completedDate=" + completedDate + '}';
+    return "Task{" + "ID=" + id + ", description='" + description + '\'' + ", pointsGained="
+        + pointsGained + ", isCompleted=" + isCompleted + ", completedBy=" + completedBy
+        + ", completedDate=" + completedDate + '}';
   }
 
   @Override public boolean equals(Object o)
@@ -128,15 +130,13 @@ public abstract class Task implements Serializable
     if (o == null || getClass() != o.getClass())
       return false;
     Task task = (Task) o;
-    return pointsGained == task.pointsGained && isCompleted == task.isCompleted
-        && Objects.equals(description, task.description) && Objects.equals(
-        completedBy, task.completedBy) && Objects.equals(completedDate,
-        task.completedDate);
+    return pointsGained == task.pointsGained && isCompleted == task.isCompleted && Objects.equals(
+        description, task.description) && Objects.equals(completedBy, task.completedBy)
+        && Objects.equals(completedDate, task.completedDate);
   }
 
   @Override public int hashCode()
   {
-    return Objects.hash(description, pointsGained, isCompleted, completedBy,
-        completedDate);
+    return Objects.hash(description, pointsGained, isCompleted, completedBy, completedDate);
   }
 }

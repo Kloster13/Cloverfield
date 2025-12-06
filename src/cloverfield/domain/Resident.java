@@ -96,7 +96,21 @@ public class Resident implements Serializable
 
   public void reducePoints(int pointsToRemove)
   {
-    setPersonalPoints(getPersonalPoints()-pointsToRemove);
+    setPersonalPoints(getPersonalPoints() - pointsToRemove);
+  }
+
+  public void addReserved(Task task)
+  {
+    if (activeTasks.size() > 2)
+    {
+      throw new InvalidResidentException("Beboer kan maks have 3 reserverede opgaver");
+    }
+    activeTasks.add(task);
+  }
+
+  public void removeReserved(Task task)
+  {
+    activeTasks.remove(task);
   }
 
   // TODO Dette er for at listen i task ser pænt ud. Hvis toString skal bruges på en anden måde skal der tænkes en bedre løsning der

@@ -63,6 +63,11 @@
                   <Insets top="30.0" />
                </padding>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="650.0">
+               <children>
+                  <Label fx:id="displayErrors" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

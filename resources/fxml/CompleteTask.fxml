@@ -45,7 +45,7 @@
                   <Label text="Pointværdi" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                   <TextArea fx:id="displayDescription" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                   <Label fx:id="displayType" prefHeight="17.0" prefWidth="150.0" text="type" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                  <ComboBox fx:id="createdByDropdown" onAction="#onCreatedByDropdown" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="completedByDropdown" onAction="#onCompletedByDropdown" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
                   <Label fx:id="displayPoint" prefHeight="17.0" prefWidth="150.0" text="Point" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
                   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="178.0" text="Vælg beboer til færdiggørelse*" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Lavet af" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />

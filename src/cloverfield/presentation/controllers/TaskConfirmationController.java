@@ -1,9 +1,6 @@
 package cloverfield.presentation.controllers;
 
-import cloverfield.domain.Barter;
-import cloverfield.domain.Green;
-import cloverfield.domain.Resident;
-import cloverfield.domain.Task;
+import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.ViewManager;
@@ -21,6 +18,7 @@ public class TaskConfirmationController implements AcceptsObjectArgument
   public Text descriptionDisplay;
   public Button cancelButton;
   public Button confirmButton;
+  public Label displayErrors;
   private DataManager dataManager;
   private Task task;
 
@@ -32,7 +30,7 @@ public class TaskConfirmationController implements AcceptsObjectArgument
   @Override public void setArgument(Object argument)
   {
     this.task = (Task) argument;
-    if(task.getType().equals("Bytte"))
+    if (task.getType().equals("Bytte"))
     {
       task = (Barter) argument;
     }
@@ -41,7 +39,6 @@ public class TaskConfirmationController implements AcceptsObjectArgument
       task = (Task) argument;
     }
 
-    //noinspection DuplicatedCode
     typeDisplay.setText(task.getType());
     pointsDisplay.setText(String.valueOf(task.getPointsGained()));
     descriptionDisplay.setText(task.getDescription());
@@ -51,14 +48,22 @@ public class TaskConfirmationController implements AcceptsObjectArgument
     }
     if (task instanceof Barter)
     {
-     createdByDisplay.setText(((Barter)task).getCreatedBy().getName());
+      createdByDisplay.setText(((Barter) task).getCreatedBy().getName());
     }
   }
 
   public void onConfirmButton()
   {
-    dataManager.addTask(task);
-    ViewManager.showView("ManageTask");
+    try
+    {
+      dataManager.addTask(task);
+      ViewManager.showView("ManageTask");
+    }
+    catch (InvalidResidentException | InvalidTaskException e)
+    {
+      displayErrors.setText(
+          e.getMessage()); // TODO Dette er noget være lort, men det kræver et check på tidligere view for at vi kan vise den der
+    }
   }
 
   public void onCancelButton()

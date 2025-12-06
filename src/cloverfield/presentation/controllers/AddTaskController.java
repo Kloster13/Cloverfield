@@ -25,6 +25,8 @@ public class AddTaskController
     this.dataManager = dataManager;
     typeInput.getItems().addAll("Grøn", "Fælles", "Bytte");
     createdBy.getItems().addAll(dataManager.getAllResidents());
+    createdBy.setDisable(true);
+    reservedByInput.getItems().addAll(dataManager.getAllResidents());
 
     //Spinner
     pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
@@ -36,6 +38,15 @@ public class AddTaskController
 
   public void onTaskTypeDropdown()
   {
+    if (typeInput.getValue().equals("Bytte"))
+    {
+      createdBy.setDisable(false);
+    }
+    else
+    {
+      createdBy.setValue(null);
+      createdBy.setDisable(true);
+    }
   }
 
   public void onReservedBy()
@@ -68,13 +79,16 @@ public class AddTaskController
           task = new Barter(descriptionInputText, pointsValue, createdByValue);
           break;
       }
+      if (reservedByInput.getValue() != null)
+      {
+        task.setReservedBy(reservedByInput.getValue());
+      }
       ViewManager.showView("TaskConfirmation", task);
     }
-    catch (InvalidTaskException |InvalidResidentException e)
+    catch (InvalidTaskException | InvalidResidentException e)
     {
       statusLabel.setText(e.getMessage());
     }
-
   }
 
   public void onCancelButton(ActionEvent actionEvent)

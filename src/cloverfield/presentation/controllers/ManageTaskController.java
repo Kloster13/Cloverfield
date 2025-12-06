@@ -104,10 +104,6 @@ public class ManageTaskController
         task -> task.getType().equals(typeFilter) && task.getIsCompleted() == completedFilter);
   }
 
-  public void onSearchByName()
-  {
-  }
-
   public void onAddButton()
   {
     ViewManager.showView("AddTask");
@@ -121,6 +117,8 @@ public class ManageTaskController
 
   public void onEditButton()
   {
-
+    int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+    System.out.println(selectedTask);
+    ViewManager.showView("EditTask", String.valueOf(selectedTask));
   }
 }

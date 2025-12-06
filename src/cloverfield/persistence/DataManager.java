@@ -15,6 +15,7 @@ public interface DataManager
   public abstract Task getTaskById(int idToGet);
   public abstract void editTask(int id,Task editedTask);
   public abstract void completeTaskFromList(int taskId, int completedById);
+  public abstract void reservedTask(int residentId,Task taskToReserve);
   // Cloverfield
   public abstract Cloverfield loadCloverfield(); //TODO ikke sikker på at den skal bruges
   // Resident

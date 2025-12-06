@@ -1,23 +1,16 @@
 package cloverfield.presentation.controllers;
 
-import cloverfield.domain.Barter;
-import cloverfield.domain.InvalidTaskException;
-import cloverfield.domain.Resident;
-import cloverfield.domain.Task;
+import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
-import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-
-import java.util.ArrayList;
 
 public class CompleteTaskController implements AcceptsStringArgument
 {
   public TextArea displayDescription;
   public Label displayType;
-  public ComboBox<Resident> createdByDropdown;
+  public ComboBox<Resident> completedByDropdown;
   public Label displayPoint;
   public Button cancelButton;
   public Button completeTaskButton;
@@ -29,7 +22,7 @@ public class CompleteTaskController implements AcceptsStringArgument
   public void init(DataManager dataManager)
   {
     this.dataManager = dataManager;
-    createdByDropdown.getItems().addAll(dataManager.getAllResidents());
+    completedByDropdown.getItems().addAll(dataManager.getAllResidents());
   }
 
   @Override public void setArgument(String argument)
@@ -48,7 +41,7 @@ public class CompleteTaskController implements AcceptsStringArgument
     System.out.println(task.getClass());
   }
 
-  public void onCreatedByDropdown()
+  public void onCompletedByDropdown()
   {
     statusLabel.setText("klar!");
     completeTaskButton.setDisable(false);
@@ -61,13 +54,13 @@ public class CompleteTaskController implements AcceptsStringArgument
 
   public void onCompleteTasKButton()
   {
-    int residentId = createdByDropdown.getValue().getId();
+    int residentId = completedByDropdown.getValue().getId();
     try
     {
       dataManager.completeTaskFromList(taskId, residentId); //TODO tilføj confirmation
       ViewManager.showView("ManageTask");
     }
-    catch (InvalidTaskException e)
+    catch (InvalidTaskException | InvalidResidentException e)
     {
       statusLabel.setText(e.getMessage());
     }

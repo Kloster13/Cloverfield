@@ -2,7 +2,6 @@ package cloverfield.persistence;
 
 import cloverfield.domain.*;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,7 +64,27 @@ public class FileDataManager implements DataManager
     return residentToGet;
   }
 
-  @Override public Resident getResidentById(int idToGet) //TODO hvis vi aldrig bruger denne version skal den fjernes
+  private void addTaskToResident(DataContainer dataContainer, Task taskToReserve,
+      int residentToReserve)
+  {
+    Resident resident = getResidentByID(dataContainer, residentToReserve);
+    resident.addReserved(taskToReserve);
+  }
+
+  private void removeTaskFromResident(DataContainer dataContainer, int taskToRemove,
+      int residentToReserve)
+  {
+    Resident resident = getResidentByID(dataContainer, residentToReserve);
+    Task task = getTaskById(taskToRemove);
+    if (task.getReservedBy() != null)
+    {
+      resident.removeReserved(task);
+    }
+    resident.removeReserved(task);
+  }
+
+  @Override public Resident getResidentById(
+      int idToGet) //TODO hvis vi aldrig bruger denne version skal den fjernes
   {
     DataContainer dataContainer = load();
     ArrayList<Resident> residents = dataContainer.getResidents();
@@ -140,6 +159,10 @@ public class FileDataManager implements DataManager
         idToSet = task.getId() + 1;
       }
     }
+    if (taskToAdd.getReservedBy() != null)
+    {
+      addTaskToResident(dataContainer, taskToAdd, taskToAdd.getReservedBy().getId());
+    }
     taskToAdd.setId(idToSet);
     tasks.add(taskToAdd);
     save(dataContainer);
@@ -149,7 +172,9 @@ public class FileDataManager implements DataManager
   {
     DataContainer dataContainer = load();
     ArrayList<Task> tasks = dataContainer.getTasks();
-    tasks.remove(getTaskById(idToDelete));
+    Task task = getTaskById(idToDelete);
+    removeTaskFromResident(dataContainer, idToDelete, task.getReservedBy().getId());
+    tasks.remove(task);
     save(dataContainer);
   }
 
@@ -173,8 +198,6 @@ public class FileDataManager implements DataManager
     //TODO historik oprydning
     DataContainer dataContainer = load();
     Cloverfield cloverfield = dataContainer.getCloverfield();
-    ArrayList<Task> tasks = dataContainer.getTasks();
-    ArrayList<Resident> residents = dataContainer.getResidents();
     Task taskToComplete = getTaskById(dataContainer, taskId);
     Resident residentToComplete = getResidentByID(dataContainer, residentId);
 
@@ -184,9 +207,20 @@ public class FileDataManager implements DataManager
       Resident createdBy = getResidentByID(dataContainer, createdById);
       createdBy.reducePoints(taskToComplete.getPointsGained());
     }
+    System.out.println(taskId);
+    System.out.println(taskToComplete.getReservedBy().getId());
+    removeTaskFromResident(dataContainer, taskId, taskToComplete.getReservedBy().getId());
+
     taskToComplete.completeTask(residentToComplete, cloverfield);
+
     save(dataContainer);
   }
+
+  @Override public void reservedTask(int residentId, Task taskToReserve)
+  {
+    DataContainer dataContainer = load();
+  }
+
   // Cloverfield
 
   @Override public Cloverfield loadCloverfield()
