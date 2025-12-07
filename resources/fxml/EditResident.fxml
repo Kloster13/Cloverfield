@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloverfield.presentation.controllers.EditTaskController">
+<AnchorPane prefHeight="550.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloverfield.presentation.controllers.EditResidentController">
    <children>
       <VBox prefHeight="550.0" prefWidth="650.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="660.0" text="Rediger opgave" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="660.0" text="Rediger beboer" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
                </font>
@@ -35,22 +35,16 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="36.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Type af opgave" textAlignment="CENTER" />
-                  <ComboBox fx:id="typeInput" onAction="#onTaskTypeDropdown" prefWidth="150.0" promptText="Vælg type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label text="Beskrivelse" GridPane.rowIndex="1" />
-                  <Label text="Pointværdi" GridPane.rowIndex="2" />
-                  <Label text="Reserveret af" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="reservedByInput" onAction="#onReservedBy" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                  <TextArea fx:id="descriptionInput" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Spinner fx:id="pointInput" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Label text="Oprettet af" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="createdBy" onAction="#onCreatedBy" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Navn" textAlignment="CENTER" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Sæt personlige point" textAlignment="CENTER" GridPane.rowIndex="1" />
+                  <TextField fx:id="nameInput" onKeyReleased="#onNameInput" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Spinner fx:id="pointInput" editable="true" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label text="Sæt aktiv status" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="statusInput" onAction="#onStatusDropdown" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets left="150.0" right="150.0" top="80.0" />
@@ -59,7 +53,7 @@
             <HBox alignment="CENTER" prefHeight="31.0" prefWidth="650.0" spacing="20.0">
                <children>
                   <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onCancelButton" text="Fortryd" />
-                  <Button fx:id="addTaskButton" alignment="CENTER" mnemonicParsing="false" onAction="#onAddTasKButton" text="Opdater opgave">
+                  <Button fx:id="updateButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateButton" text="Opdater">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
