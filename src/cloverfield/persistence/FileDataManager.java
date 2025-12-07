@@ -275,7 +275,13 @@ public class FileDataManager implements DataManager
     return load().getResidents();
   }
 
-  @Override public void editResident(int id, Resident editedResident)
+  @Override public void editResident(int idToEdit, Resident editedResident)
   {
+    deleteResident(idToEdit);
+    DataContainer dataContainer = load();
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    editedResident.setId(idToEdit);
+    residents.add(editedResident);
+    save(dataContainer);
   }
 }

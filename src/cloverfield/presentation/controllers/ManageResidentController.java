@@ -79,8 +79,10 @@ public class ManageResidentController implements AcceptsStringArgument
     ViewManager.showView("AddResident");
   }
 
-  public void onEditButton(ActionEvent actionEvent)
+  public void onEditButton()
   {
+    int selectedResident = residentTable.getSelectionModel().getSelectedItem().getId();
+    ViewManager.showView("EditResident", String.valueOf(selectedResident));
   }
 
   public void onBack(ActionEvent actionEvent)

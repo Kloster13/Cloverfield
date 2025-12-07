@@ -29,6 +29,9 @@ public class Resident implements Serializable
 
   public void setName(String name)
   {
+    if(name.isEmpty()){
+      throw new InvalidResidentException("Navn må ikke være blankt");
+    }
     this.name = name;
   }
 
@@ -71,7 +74,7 @@ public class Resident implements Serializable
   {
     if (personalPoints < 0)
     {
-      throw new InvalidTaskException("Points can´t be negative");
+      throw new InvalidResidentException("Personlige point må ikke være negative");
     }
     this.personalPoints = personalPoints;
   }
