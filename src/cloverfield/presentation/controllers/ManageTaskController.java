@@ -31,16 +31,18 @@ public class ManageTaskController
   public TableView<Task> taskTable;
   public ComboBox<String> typeDropdown;
   public ComboBox<Boolean> statusDropdown;
+  public Button historyToggleButton;
   private DataManager dataManager;
   private FilteredList<Task> taskList;
   private String typeFilter;
   private boolean completedFilter;
+  private boolean showHistoryView;
 
   public void init(DataManager dataManager)
   {
     typeDropdown.getItems().addAll("Grøn", "Fælles", "Bytte");
-    statusDropdown.getItems().addAll(true, false);
-
+    this.showHistoryView = false;
+    this.completedFilter=false;
     this.dataManager = dataManager;
 
     taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
@@ -83,20 +85,6 @@ public class ManageTaskController
     ViewManager.showView("Home");
   }
 
-  public void onStatusDropdown()
-  {
-    completedFilter = statusDropdown.getValue();
-    if (typeFilter == null)
-    {
-      taskList.setPredicate(task -> task.getIsCompleted() == completedFilter);
-    }
-    else
-    {
-      taskList.setPredicate(
-          task -> task.getType().equals(typeFilter) && task.getIsCompleted() == completedFilter);
-    }
-  }
-
   public void onTypeDropdown()
   {
     typeFilter = typeDropdown.getValue();
@@ -120,5 +108,31 @@ public class ManageTaskController
     int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
     System.out.println(selectedTask);
     ViewManager.showView("EditTask", String.valueOf(selectedTask));
+  }
+
+  public void onHistoryToggleBottom()
+  {
+    showHistoryView = !showHistoryView;
+
+    if (showHistoryView)
+    {
+      completedFilter=true;
+      taskList.setPredicate(
+          task -> (typeFilter==null||task.getType().equals(typeFilter)) && task.getIsCompleted());
+      historyToggleButton.setText("Se aktive opgaver");
+      reservedTable.setText("Færdiggjort af");
+      reservedTable.setCellValueFactory(new PropertyValueFactory<>("completedBy"));
+    }
+    else
+    {
+      completedFilter=false;
+      historyToggleButton.setText("Se historik");
+      reservedTable.setText("Reserveret af");
+      reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
+      taskList.setPredicate(
+          task -> (typeFilter==null||task.getType().equals(typeFilter)) && !task.getIsCompleted());
+    }
+
+
   }
 }

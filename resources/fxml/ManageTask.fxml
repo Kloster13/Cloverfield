@@ -40,10 +40,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ComboBox fx:id="statusDropdown" onAction="#onStatusDropdown" prefWidth="150.0" promptText="Opgave status" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Label text="Opgave fuldørt" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                        <Label text="Opgave type" GridPane.halignment="CENTER" />
+                        <Label text="Vælg opgave type" GridPane.halignment="CENTER" />
                         <ComboBox fx:id="typeDropdown" onAction="#onTypeDropdown" prefHeight="25.0" prefWidth="141.0" promptText="Opgave type" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button fx:id="historyToggleButton" mnemonicParsing="false" onAction="#onHistoryToggleBottom" prefHeight="25.0" prefWidth="140.0" text="Se Historik" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane>
@@ -85,8 +84,8 @@
                                 <TableColumn fx:id="descriptionColumn" prefWidth="209.0" text="Beskrivelse" />
                                 <TableColumn fx:id="pointColumn" minWidth="0.0" text="Point" />
                                 <TableColumn fx:id="statusTable" prefWidth="94.0" text="Fuldført" />
-                                <TableColumn fx:id="reservedTable" prefWidth="93.0" text="Reserveret af" />
-                        <TableColumn fx:id="deleteColumn" prefWidth="66.0" text="Slet" />
+                                <TableColumn fx:id="reservedTable" prefWidth="119.0" text="Reserveret af" />
+                        <TableColumn fx:id="deleteColumn" prefWidth="60.0" text="Slet" />
                             </columns>
                      <VBox.margin>
                         <Insets left="-10.0" />
