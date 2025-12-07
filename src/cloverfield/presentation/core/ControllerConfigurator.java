@@ -18,6 +18,9 @@ public class ControllerConfigurator
       case CompleteTaskController ctrl ->ctrl.init(getDataManager());
       case DeleteTaskController ctrl ->ctrl.init(getDataManager());
       case EditTaskController ctrl->ctrl.init(getDataManager());
+      case ManageResidentController ctrl->ctrl.init(getDataManager());
+      case AddResidentController ctrl->ctrl.init(getDataManager());
+      case DeleteResidentController ctrl -> ctrl.init(getDataManager());
       default -> throw new RuntimeException(
           "Controller of type '" + controller.getClass().getSimpleName()
               + "' not valid.");

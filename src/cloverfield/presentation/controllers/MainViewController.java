@@ -12,6 +12,7 @@ public class MainViewController
 
   public void onHandleResident(ActionEvent actionEvent)
   {
+    ViewManager.showView("ManageResident");
   }
 
   public void onHandleTask(ActionEvent actionEvent)

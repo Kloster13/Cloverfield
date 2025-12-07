@@ -14,16 +14,12 @@ public class Resident implements Serializable
 
   public Resident(String name)
   {
+    if(name.isEmpty()){
+      throw new InvalidResidentException("Navn må ikke være blankt");
+    }
     this.name = name;
     activeTasks = new ArrayList<>();
     active = true;
-  }
-
-  public Resident(String name, int id, boolean active)
-  {
-    this.name = name;
-    this.active = active;
-    activeTasks = new ArrayList<>();
   }
 
   public String getName()

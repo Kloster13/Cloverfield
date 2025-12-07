@@ -13,8 +13,8 @@ public class CompleFromListTest
   {
     FileDataManager dm = new FileDataManager();
     Cloverfield cloverfield = dm.load().getCloverfield();
-    Resident bob = new Resident("Bob", 1, true);
-    Resident don = new Resident("Don", 2, false);
+    Resident bob = new Resident("Bob");
+    Resident don = new Resident("Don");
     Green green = new Green("Feje", 10);
     Collective collective = new Collective("Også feje", 20);
     Barter barter = new Barter("fej for mig", 25, bob);

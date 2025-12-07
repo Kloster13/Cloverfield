@@ -10,8 +10,8 @@ public class TaskDomainTester
   public static void main(String[] args)
   {
     Cloverfield cloverfield = new Cloverfield();
-    Resident bob = new Resident("Bob", 0, true);
-    Resident don = new Resident("Don", 1, false);
+    Resident bob = new Resident("Bob");
+    Resident don = new Resident("Don");
     Green green = new Green("Feje", 10);
     Collective collective = new Collective("Også feje", 20);
     Barter barter = new Barter("fej for mig", 25, bob);

@@ -30,7 +30,6 @@ public class DeleteTaskController implements AcceptsStringArgument
     this.taskId=Integer.parseInt(argument);
     Task task = dataManager.getTaskById(taskId);
 
-    //noinspection DuplicatedCode
     typeDisplay.setText(task.getType());
     pointsDisplay.setText(String.valueOf(task.getPointsGained()));
     descriptionDisplay.setText(task.getDescription());
