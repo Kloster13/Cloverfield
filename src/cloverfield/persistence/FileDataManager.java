@@ -264,12 +264,6 @@ public class FileDataManager implements DataManager
       }
       cloverfield.addPoints(pointsToAddCloverfield);
     }
-    else {
-      System.out.println("Ikke kørt");
-      System.out.println(LocalDate.now());
-      System.out.println(LocalDate.now().getDayOfMonth());
-      System.out.println(cloverfield.getLastCheck());
-    }
     cloverfield.setLastCheck(LocalDate.now());
     save(dataContainer);
   }
