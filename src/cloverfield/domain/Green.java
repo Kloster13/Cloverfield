@@ -21,7 +21,7 @@ public class Green extends Task
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
     super.setCompletedDate(LocalDate.now());
-    completedBy.addPoints(super.getPointsGained(),cloverfield.getActiveMultiplier());
+    cloverfield.addPoints(super.getPointsGained());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
   }

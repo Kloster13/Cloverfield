@@ -2,15 +2,20 @@ package cloverfield.persistence;
 
 import cloverfield.domain.*;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.spec.RSAOtherPrimeInfo;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class FileDataManager implements DataManager
 {
-  private final Path path = Paths.get("src", "cloverfield", "CloverfieldData.bin");
+  private final Path path = Paths.get("src", "cloverfield",
+      "CloverfieldData.bin");
 
   public FileDataManager() throws FileAccessException
   {
@@ -23,7 +28,8 @@ public class FileDataManager implements DataManager
 
   public void save(DataContainer dataContainer) throws FileAccessException
   {
-    try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path.toFile())))
+    try (ObjectOutputStream output = new ObjectOutputStream(
+        new FileOutputStream(path.toFile())))
     {
       output.writeObject(dataContainer);
     }
@@ -35,7 +41,8 @@ public class FileDataManager implements DataManager
 
   public DataContainer load() throws FileAccessException
   {
-    try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(path.toFile())))
+    try (ObjectInputStream input = new ObjectInputStream(
+        new FileInputStream(path.toFile())))
     {
       return (DataContainer) input.readObject();
     }
@@ -64,14 +71,15 @@ public class FileDataManager implements DataManager
     return residentToGet;
   }
 
-  private void addTaskToResident(DataContainer dataContainer, Task taskToReserve,
-      int residentToReserve)
+  private void addTaskToResident(DataContainer dataContainer,
+      Task taskToReserve, int residentToReserve)
   {
     Resident resident = getResidentByID(dataContainer, residentToReserve);
     resident.addReserved(taskToReserve);
   }
 
-  private void removeTaskFromResident(DataContainer dataContainer, int taskToRemove)
+  private void removeTaskFromResident(DataContainer dataContainer,
+      int taskToRemove)
   {
     Task task = getTaskById(dataContainer, taskToRemove);
     if (task.getReservedBy() != null)
@@ -160,7 +168,8 @@ public class FileDataManager implements DataManager
     }
     if (taskToAdd.getReservedBy() != null)
     {
-      addTaskToResident(dataContainer, taskToAdd, taskToAdd.getReservedBy().getId());
+      addTaskToResident(dataContainer, taskToAdd,
+          taskToAdd.getReservedBy().getId());
     }
     taskToAdd.setId(idToSet);
     tasks.add(taskToAdd);
@@ -189,7 +198,8 @@ public class FileDataManager implements DataManager
     ArrayList<Task> tasks = dataContainer.getTasks();
     editedTask.setId(idToEdit);
     tasks.add(editedTask);
-    addTaskToResident(dataContainer, editedTask, editedTask.getReservedBy().getId());
+    addTaskToResident(dataContainer, editedTask,
+        editedTask.getReservedBy().getId());
     save(dataContainer);
   }
 
@@ -236,6 +246,51 @@ public class FileDataManager implements DataManager
   @Override public Cloverfield loadCloverfield()
   {
     return load().getCloverfield();
+  }
+
+  @Override public void resetAllPersonalPoints()
+  {
+    DataContainer dataContainer = load();
+    Cloverfield cloverfield = dataContainer.getCloverfield();
+    if (!cloverfield.getLastCheck().equals(LocalDate.now())
+        && LocalDate.now().getDayOfMonth() == 1)
+    {
+      ArrayList<Resident> residents = dataContainer.getResidents();
+      int pointsToAddCloverfield = 0;
+      for (Resident resident : residents)
+      {
+        pointsToAddCloverfield += resident.getPersonalPoints();
+        resident.setPersonalPoints(0);
+      }
+      cloverfield.addPoints(pointsToAddCloverfield);
+    }
+    else {
+      System.out.println("Ikke kørt");
+      System.out.println(LocalDate.now());
+      System.out.println(LocalDate.now().getDayOfMonth());
+      System.out.println(cloverfield.getLastCheck());
+    }
+    cloverfield.setLastCheck(LocalDate.now());
+    save(dataContainer);
+  }
+
+  @Override public void setActiveStatus()
+  {
+    DataContainer dataContainer = load();
+    ArrayList<Resident> residents = dataContainer.getResidents();
+    residents.sort(Comparator.comparingInt(Resident::getPersonalPoints));
+    for (int i = 0; i < residents.size(); i++)
+    {
+      if ((i < 3) || (residents.get(i).getPersonalPoints() == 0))
+      {
+        residents.get(i).setActive(false);
+      }
+      else
+      {
+        residents.get(i).setActive(true);
+      }
+    }
+    save(dataContainer);
   }
 
   // Resident

@@ -18,6 +18,8 @@ public interface DataManager
   public abstract void reservedTask(int residentId,Task taskToReserve);
   // Cloverfield
   public abstract Cloverfield loadCloverfield(); //TODO ikke sikker på at den skal bruges
+  public abstract void resetAllPersonalPoints();
+  public abstract void setActiveStatus();
   // Resident
   public abstract Resident getResidentById(int id);
   public abstract void addResident(Resident resident);

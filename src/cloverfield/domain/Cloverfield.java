@@ -16,7 +16,18 @@ public class Cloverfield implements Serializable
   {
     collectiveGreenPoints = 0;
     historicUses = new ArrayList<>();
+    lastCheck=LocalDate.now();
     activeMultiplier = 1.2;
+  }
+
+  public LocalDate getLastCheck()
+  {
+    return lastCheck;
+  }
+
+  public void setLastCheck(LocalDate lastCheck)
+  {
+    this.lastCheck = lastCheck;
   }
 
   public int getCollectiveGreenPoints()

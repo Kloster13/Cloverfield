@@ -14,8 +14,8 @@ public class Collective extends Task
   {
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);
+    completedBy.addPoints(super.getPointsGained(),cloverfield.getActiveMultiplier());
     super.setIsComplete(true);
-    cloverfield.addPoints(super.getPointsGained());
   }
 
   @Override public Task copy()

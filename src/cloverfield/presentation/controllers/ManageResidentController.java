@@ -74,7 +74,7 @@ public class ManageResidentController implements AcceptsStringArgument
     });
   }
 
-  public void onAddButton(ActionEvent actionEvent)
+  public void onAddButton()
   {
     ViewManager.showView("AddResident");
   }
@@ -90,8 +90,8 @@ public class ManageResidentController implements AcceptsStringArgument
     ViewManager.showView("Home");
   }
 
-  public void onDetailsButton(ActionEvent actionEvent)
+  public void onDetailsButton()
   {
+    dataManager.resetAllPersonalPoints();
   }
-
 }
