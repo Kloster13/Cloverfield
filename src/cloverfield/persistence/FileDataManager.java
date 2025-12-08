@@ -233,13 +233,12 @@ public class FileDataManager implements DataManager
   }
 
   // Cloverfield
-
   @Override public Cloverfield loadCloverfield()
   {
     return load().getCloverfield();
   }
-  // Resident
 
+  // Resident
   @Override public void addResident(Resident residentToAdd)
   {
     DataContainer dataContainer = load();

@@ -60,7 +60,7 @@
                         <Button fx:id="addButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onAddButton" prefWidth="80.0" text="Tilføj" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="completeButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onCompleteButton" prefWidth="80.0" text="Færdiggør" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="editButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onEditButton" prefWidth="80.0" text="Rediger" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <Button fx:id="backButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onBack" prefWidth="80.0" text="Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <Button fx:id="backButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onBack" prefWidth="80.0" text="Tilbage" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

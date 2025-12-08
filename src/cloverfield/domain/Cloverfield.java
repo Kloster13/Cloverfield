@@ -1,6 +1,7 @@
 package cloverfield.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class Cloverfield implements Serializable
   private int collectiveGreenPoints;
   private List<GreenPointUsage> historicUses;
   private double activeMultiplier;
+  private LocalDate lastCheck;
 
   public Cloverfield()
   {
