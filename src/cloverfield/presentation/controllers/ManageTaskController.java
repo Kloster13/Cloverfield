@@ -5,6 +5,7 @@ import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
 import cloverfield.persistence.FileAccessException;
 import cloverfield.persistence.FileDataManager;
+import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -15,7 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-public class ManageTaskController
+public class ManageTaskController implements AcceptsStringArgument
 {
   public Button addButton;
   public Button completeButton;
@@ -32,6 +33,7 @@ public class ManageTaskController
   public ComboBox<String> typeDropdown;
   public ComboBox<Boolean> statusDropdown;
   public Button historyToggleButton;
+  public Label statusLabel;
   private DataManager dataManager;
   private FilteredList<Task> taskList;
   private String typeFilter;
@@ -78,6 +80,11 @@ public class ManageTaskController
         }
       };
     });
+  }
+
+  @Override public void setArgument(String argument)
+  {
+    statusLabel.setText(argument);
   }
 
   public void onBack()
@@ -132,6 +139,7 @@ public class ManageTaskController
       taskList.setPredicate(
           task -> (typeFilter==null||task.getType().equals(typeFilter)) && !task.getIsCompleted());
     }
+
 
 
   }

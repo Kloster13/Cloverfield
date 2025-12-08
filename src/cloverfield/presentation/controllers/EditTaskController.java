@@ -115,7 +115,7 @@ public class EditTaskController implements AcceptsStringArgument
         task.setReservedBy(reservedByInput.getValue());
       }
       dataManager.editTask(taskToShow.getId(), task);
-      ViewManager.showView("ManageTask");
+      ViewManager.showView("ManageTask","Opgaven blev opdateret");
     }
     catch (InvalidTaskException | InvalidResidentException e)
     {

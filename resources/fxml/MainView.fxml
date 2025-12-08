@@ -43,6 +43,7 @@
                   <Button fx:id="handleResident" mnemonicParsing="false" onAction="#onHandleResident" prefHeight="25.0" prefWidth="130.0" text="Håndter Beboer" />
                   <Button fx:id="handlePoint" mnemonicParsing="false" onAction="#onHandleTask" prefWidth="130.0" text="Håndter Opgaver" />
                   <Button fx:id="greenPoints" mnemonicParsing="false" onAction="#onGreenPoints" prefWidth="130.0" text="Grønne Point" />
+                  <Button fx:id="showCatalogButton" mnemonicParsing="false" onAction="#onShowCatalogButton" prefWidth="130.0" text="Vis opgave katalog" />
                </children>
                 </VBox>
                 <Separator orientation="VERTICAL" prefHeight="200.0" />

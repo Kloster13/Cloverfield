@@ -51,6 +51,6 @@ public class DeleteTaskController implements AcceptsStringArgument
   public void onConfirmButton()
   {
     dataManager.deleteTask(taskId);
-    ViewManager.showView("ManageTask");
+    ViewManager.showView("ManageTask", "Opgave blev slettet");
   }
 }

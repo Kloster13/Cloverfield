@@ -23,6 +23,7 @@ public class ControllerConfigurator
       case DeleteResidentController ctrl -> ctrl.init(getDataManager());
       case EditResidentController ctrl -> ctrl.init(getDataManager());
       case HomeController ctrl -> ctrl.init(getDataManager());
+      case OverviewOnScreenController ctrl->ctrl.init(getDataManager());
       default -> throw new RuntimeException(
           "Controller of type '" + controller.getClass().getSimpleName()
               + "' not valid.");

@@ -57,7 +57,7 @@ public class TaskConfirmationController implements AcceptsObjectArgument
     try
     {
       dataManager.addTask(task);
-      ViewManager.showView("ManageTask");
+      ViewManager.showView("ManageTask", task.getType() + "-opgave blev tilføjet");
     }
     catch (InvalidResidentException | InvalidTaskException e)
     {

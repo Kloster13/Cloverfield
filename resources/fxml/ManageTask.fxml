@@ -68,10 +68,16 @@
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="650.0" spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="650.0" spacing="10.0">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
+               <children>
+                  <Label fx:id="statusLabel" alignment="CENTER_RIGHT">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Label>
+               </children>
             </HBox>
                 <VBox prefHeight="393.0" prefWidth="655.0" spacing="6.0">
                     <VBox.margin>

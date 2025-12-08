@@ -4,11 +4,14 @@ import cloverfield.presentation.core.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
+import javax.swing.text.View;
+
 public class MainViewController
 {
   public Button handleResident;
   public Button handlePoint;
   public Button greenPoints;
+  public Button showCatalogButton;
 
   public void onHandleResident(ActionEvent actionEvent)
   {
@@ -22,5 +25,10 @@ public class MainViewController
 
   public void onGreenPoints(ActionEvent actionEvent)
   {
+  }
+
+  public void onShowCatalogButton()
+  {
+    ViewManager.showView("OverviewOnScreen");
   }
 }

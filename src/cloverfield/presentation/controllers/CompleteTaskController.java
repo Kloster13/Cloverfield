@@ -57,7 +57,7 @@ public class CompleteTaskController implements AcceptsStringArgument
     {
       dataManager.completeTaskFromList(taskId, residentId); //TODO tilføj confirmation
       dataManager.setActiveStatus();
-      ViewManager.showView("ManageTask");
+      ViewManager.showView("ManageTask", "Opgave oprettet");
     }
     catch (InvalidTaskException | InvalidResidentException e)
     {
