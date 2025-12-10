@@ -8,7 +8,7 @@ import java.util.List;
 public class Cloverfield implements Serializable
 {
   private int collectiveGreenPoints;
-  private List<GreenPointUsage> historicUses;
+  private ArrayList<GreenPointUsage> historicUses;
   private double activeMultiplier;
   private LocalDate lastCheck;
 
@@ -16,7 +16,7 @@ public class Cloverfield implements Serializable
   {
     collectiveGreenPoints = 0;
     historicUses = new ArrayList<>();
-    lastCheck=LocalDate.now();
+    lastCheck = LocalDate.now();
     activeMultiplier = 1.2;
   }
 
@@ -50,7 +50,7 @@ public class Cloverfield implements Serializable
     return activeMultiplier;
   }
 
-  public void setHistoricUses(List<GreenPointUsage> historicUses)
+  public void setHistoricUses(ArrayList<GreenPointUsage> historicUses)
   {
     this.historicUses = historicUses;
   }
@@ -65,6 +65,15 @@ public class Cloverfield implements Serializable
     this.activeMultiplier = multiplier;
   }
 
+  public void addHistoric(GreenPointUsage usage)
+  {
+    if (usage.getGreenPoints() > collectiveGreenPoints)
+    {
+      throw new InvalidPointUsage("Ikke nok grønne point!!");
+    }
+    historicUses.add(usage);
+    collectiveGreenPoints-= usage.getGreenPoints();
+  }
 
   @Override public String toString()
   {

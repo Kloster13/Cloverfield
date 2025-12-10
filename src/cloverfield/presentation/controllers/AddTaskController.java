@@ -29,7 +29,7 @@ public class AddTaskController
     reservedByInput.getItems().addAll(dataManager.getAllResidents());
 
     //Spinner
-    pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
+    pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999, 0));
 
     BooleanBinding minimumFilled = descriptionInput.textProperty().isNotEmpty()
         .and(typeInput.valueProperty().isNotNull());

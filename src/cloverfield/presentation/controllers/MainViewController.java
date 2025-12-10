@@ -25,6 +25,7 @@ public class MainViewController
 
   public void onGreenPoints(ActionEvent actionEvent)
   {
+    ViewManager.showView("Cloverfield");
   }
 
   public void onShowCatalogButton()

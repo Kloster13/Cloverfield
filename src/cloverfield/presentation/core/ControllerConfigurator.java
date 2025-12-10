@@ -24,6 +24,8 @@ public class ControllerConfigurator
       case EditResidentController ctrl -> ctrl.init(getDataManager());
       case HomeController ctrl -> ctrl.init(getDataManager());
       case OverviewOnScreenController ctrl->ctrl.init(getDataManager());
+      case CloverfieldController ctrl->ctrl.init(getDataManager());
+      case UseGreenPointsController ctrl->ctrl.init(getDataManager());
             default -> throw new RuntimeException(
           "Controller of type '" + controller.getClass().getSimpleName()
               + "' not valid.");

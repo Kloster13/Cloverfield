@@ -41,6 +41,5 @@ public class OverviewOnScreenController
     String typeFilter = typeDropdown.getValue();
     taskList.setPredicate(
         task -> task.getType().equals(typeFilter)&&!task.getIsCompleted());
-
   }
 }

@@ -11,7 +11,7 @@ public class AddAndDeleteResidentTest
   {
     // This only work properly when Bob is not in list.
     DataManager dm = new FileDataManager();
-    System.out.println(dm.loadCloverfield());
+    System.out.println(dm.getCloverfield());
 
     System.out.println(dm.getAllResidents());
     Resident bob = new Resident("Bob");

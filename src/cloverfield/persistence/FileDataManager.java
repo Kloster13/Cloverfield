@@ -242,10 +242,23 @@ public class FileDataManager implements DataManager
     DataContainer dataContainer = load();
   }
 
+  @Override public ArrayList<GreenPointUsage> getAllUses()
+  {
+    return (ArrayList<GreenPointUsage>) load().getCloverfield()
+        .getHistoricUses();
+  }
+
   // Cloverfield
-  @Override public Cloverfield loadCloverfield()
+  @Override public Cloverfield getCloverfield()
   {
     return load().getCloverfield();
+  }
+
+  @Override public void useGreenPoints(GreenPointUsage usage)
+  {
+    DataContainer dataContainer = load();
+    dataContainer.getCloverfield().addHistoric(usage);
+    save(dataContainer);
   }
 
   @Override public void resetAllPersonalPoints()

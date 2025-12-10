@@ -9,12 +9,19 @@ public class GreenPointUsage implements Serializable
   private int greenPoints;
   private LocalDate dateSpent;
 
-  public GreenPointUsage(String usageDescription, int greenPoints,
-      LocalDate dateSpent)
+  public GreenPointUsage(String usageDescription, int greenPoints)
   {
+    if (usageDescription.isEmpty())
+    {
+      throw new InvalidPointUsage("Beskrivelse må ikke være tom");
+    }
     this.usageDescription = usageDescription;
+    if (greenPoints < 0)
+    {
+      throw new InvalidPointUsage("Point pris kan ikke være negativ!");
+    }
     this.greenPoints = greenPoints;
-    dateSpent= LocalDate.now();
+    this.dateSpent = LocalDate.now();
   }
 
   public String getUsageDescription()

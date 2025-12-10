@@ -1,6 +1,7 @@
 package cloverfield.persistence;
 
 import cloverfield.domain.Cloverfield;
+import cloverfield.domain.GreenPointUsage;
 import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
 
@@ -17,7 +18,9 @@ public interface DataManager
   public abstract void completeTaskFromList(int taskId, int completedById);
   public abstract void reservedTask(int residentId,Task taskToReserve);
   // Cloverfield
-  public abstract Cloverfield loadCloverfield(); //TODO ikke sikker på at den skal bruges
+  public abstract Cloverfield getCloverfield();
+  public abstract ArrayList<GreenPointUsage> getAllUses();
+  public abstract void useGreenPoints(GreenPointUsage usage);
   public abstract void resetAllPersonalPoints();
   public abstract void setActiveStatus();
   // Resident
