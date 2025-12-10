@@ -332,4 +332,9 @@ public class FileDataManager implements DataManager
     residents.add(editedResident);
     save(dataContainer);
   }
+
+  @Override public void updateActiveStatusOfResidents()
+  {
+
+  }
 }

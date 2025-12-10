@@ -26,5 +26,5 @@ public interface DataManager
   public abstract void deleteResident(int idToDelete);
   public abstract ArrayList<Resident> getAllResidents();
   public abstract void editResident(int id, Resident editedResident);
-
+  public abstract void updateActiveStatusOfResidents();
 }

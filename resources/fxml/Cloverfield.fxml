@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox prefHeight="400.0" prefWidth="151.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label lineSpacing="2.0" prefHeight="34.0" prefWidth="161.0" text=" Grønnepoint" textAlignment="CENTER">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-               <font>
-                  <Font size="13.0" />
-               </font></Label>
-            <Separator prefHeight="8.0" prefWidth="135.0" />
-            <Button fx:id="btnShowCollective" mnemonicParsing="false" onAction="#ShowCollectiveGreenPoints" prefHeight="26.0" prefWidth="142.0" text="Vis Kollektive Grønne point" textAlignment="CENTER" />
-            <Button fx:id="btnUseGreenPoints" mnemonicParsing="false" onAction="#UseGreenPoints" prefHeight="26.0" prefWidth="142.0" text="Brug Grønne Points" textAlignment="CENTER" />
-            <Button fx:id="btnUpdateStatus" mnemonicParsing="false" onAction="#UpdateActiveStatusOfResidents" prefHeight="26.0" prefWidth="142.0" text=" Opdater Aktiv Status" textAlignment="CENTER" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" right="10.0" top="20.0" />
-         </padding></VBox>
-      <Separator layoutX="143.0" layoutY="2.0" orientation="VERTICAL" prefHeight="392.0" prefWidth="6.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cloverfield.presentation.controllers.CloverfieldController">
+    <children>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="660.0" text="Opgaver" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                </Label>
+                <Separator prefWidth="200.0" />
+                <HBox prefHeight="45.0" prefWidth="650.0" spacing="10.0">
+                    <children>
+                        <GridPane prefHeight="45.0" prefWidth="689.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="showGreenPoints" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onShowCollectiveGrenPointsButton" prefHeight="26.0" prefWidth="123.0" text="Vis Grønne Point" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                <Button fx:id="useGreenPoints" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onUseGreenPointsButton" prefHeight="26.0" prefWidth="124.0" text="Indløs Grønne Point" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                <Button fx:id="historicUses" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onShowHistoricUsesButton" prefHeight="26.0" prefWidth="124.0" text="Vis historik" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="29.0" prefWidth="650.0" spacing="10.0">
+                    <VBox.margin>
+                        <Insets left="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <VBox prefHeight="393.0" prefWidth="655.0" spacing="6.0">
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                    </VBox.margin>
+               <children>
+                  <TableView prefHeight="401.0" prefWidth="610.0">
+                    <columns>
+                      <TableColumn prefWidth="609.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
