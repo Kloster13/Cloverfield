@@ -11,13 +11,6 @@ public class Green extends Task
     super.setType("Grøn");
   }
 
-  //TODO overvej om denne skal være her
-  public Green(String description, int pointsGained, Resident reservedBy)
-  {
-    super(description, pointsGained, reservedBy);
-    super.setType("Grøn");
-  }
-
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
     super.setCompletedDate(LocalDate.now());
@@ -26,7 +19,7 @@ public class Green extends Task
     super.setIsComplete(true);
   }
 
-  @Override public Task copy()
+  @Override public Task copyTask()
   {
     return new Green(getDescription(),getPointsGained());
   }

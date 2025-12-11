@@ -16,7 +16,6 @@ public class TaskDomainTester
     Collective collective = new Collective("Også feje", 20);
     Barter barter = new Barter("fej for mig", 25, bob);
 
-    bob.addPoints(30);
     ArrayList<Task> tasks = new ArrayList<>(
         Arrays.asList(green, collective, barter));
 

@@ -12,11 +12,10 @@ public interface DataManager
   // Task
   public abstract void addTask(Task task);
   public abstract void deleteTask(int idToDelete);
+  public abstract void editTask(int id,Task editedTask);
   public abstract ArrayList<Task> getAllTasks();
   public abstract Task getTaskById(int idToGet);
-  public abstract void editTask(int id,Task editedTask);
   public abstract void completeTaskFromList(int taskId, int completedById);
-  public abstract void reservedTask(int residentId,Task taskToReserve);
   // Cloverfield
   public abstract Cloverfield getCloverfield();
   public abstract ArrayList<GreenPointUsage> getAllUses();
@@ -29,5 +28,4 @@ public interface DataManager
   public abstract void deleteResident(int idToDelete);
   public abstract ArrayList<Resident> getAllResidents();
   public abstract void editResident(int id, Resident editedResident);
-  public abstract void updateActiveStatusOfResidents();
 }

@@ -29,28 +29,13 @@ public class GreenPointUsage implements Serializable
     return usageDescription;
   }
 
-  public void setUsageDescription(String usageDescription)
-  {
-    this.usageDescription = usageDescription;
-  }
-
   public int getGreenPoints()
   {
     return greenPoints;
   }
 
-  public void setGreenPoints(int greenPoints)
-  {
-    this.greenPoints = greenPoints;
-  }
-
   public LocalDate getDateSpent()
   {
     return dateSpent;
-  }
-
-  public void setDateSpent(LocalDate dateSpent)
-  {
-    this.dateSpent = dateSpent;
   }
 }

@@ -18,7 +18,7 @@ public class Collective extends Task
     super.setIsComplete(true);
   }
 
-  @Override public Task copy()
+  @Override public Task copyTask()
   {
     return new Collective(getDescription(),getPointsGained());
   }

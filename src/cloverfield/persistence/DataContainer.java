@@ -39,10 +39,4 @@ public class DataContainer implements Serializable
   {
     this.cloverfield = cloverfield;
   }
-
-  @Override public String toString()
-  {
-    return "DataContainer{" + "cloverfield=" + cloverfield + ", residents="
-        + residents + ", tasks=" + tasks + '}';
-  }
 }

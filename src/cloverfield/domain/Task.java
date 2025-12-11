@@ -37,7 +37,7 @@ public abstract class Task implements Serializable
   }
 
   public abstract void completeTask(Resident completedBy, Cloverfield cloverfield);
-  public abstract Task copy();
+  public abstract Task copyTask();
 
   public String getDescription()
   {
@@ -47,16 +47,6 @@ public abstract class Task implements Serializable
   public int getPointsGained()
   {
     return pointsGained;
-  }
-
-  public Resident getCompletedBy()
-  {
-    return completedBy;
-  }
-
-  public LocalDate getCompletedDate()
-  {
-    return completedDate;
   }
 
   public int getId()
@@ -82,16 +72,6 @@ public abstract class Task implements Serializable
   public boolean getIsCompleted()
   {
     return isCompleted;
-  }
-
-  public void setDescription(String description)
-  {
-    this.description = description;
-  }
-
-  public void setPointsGained(int pointsGained)
-  {
-    this.pointsGained = pointsGained;
   }
 
   public void setCompletedBy(Resident completedBy)

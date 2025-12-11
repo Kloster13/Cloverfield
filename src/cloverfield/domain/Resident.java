@@ -14,7 +14,8 @@ public class Resident implements Serializable
 
   public Resident(String name)
   {
-    if(name.isEmpty()){
+    if (name.isEmpty())
+    {
       throw new InvalidResidentException("Navn må ikke være blankt");
     }
     this.name = name;
@@ -29,7 +30,8 @@ public class Resident implements Serializable
 
   public void setName(String name)
   {
-    if(name.isEmpty()){
+    if (name.isEmpty())
+    {
       throw new InvalidResidentException("Navn må ikke være blankt");
     }
     this.name = name;
@@ -55,16 +57,6 @@ public class Resident implements Serializable
     this.active = active;
   }
 
-  public ArrayList<Task> getActiveTasks()
-  {
-    return activeTasks;
-  }
-
-  public void setActiveTasks(ArrayList<Task> activeTasks)
-  {
-    this.activeTasks = activeTasks;
-  }
-
   public int getPersonalPoints()
   {
     return personalPoints;
@@ -77,11 +69,6 @@ public class Resident implements Serializable
       throw new InvalidResidentException("Personlige point må ikke være negative");
     }
     this.personalPoints = personalPoints;
-  }
-
-  public void addPoints(int pointsToAdd)
-  {
-    this.personalPoints += pointsToAdd;
   }
 
   public void addPoints(int pointsToAdd, double multiplier)
@@ -112,7 +99,6 @@ public class Resident implements Serializable
     activeTasks.remove(task);
   }
 
-  // TODO Dette er for at listen i task ser pænt ud. Hvis toString skal bruges på en anden måde skal der tænkes en bedre løsning der
   @Override public String toString()
   {
     return name + " (point: " + personalPoints + ")";
@@ -125,10 +111,5 @@ public class Resident implements Serializable
     Resident resident = (Resident) o;
     return personalPoints == resident.personalPoints && Objects.equals(name, resident.name)
         && Objects.equals(activeTasks, resident.activeTasks);
-  }
-
-  @Override public int hashCode()
-  {
-    return Objects.hash(name, activeTasks, personalPoints);
   }
 }

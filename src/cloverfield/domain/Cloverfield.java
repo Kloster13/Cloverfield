@@ -35,11 +35,6 @@ public class Cloverfield implements Serializable
     return collectiveGreenPoints;
   }
 
-  public void setCollectiveGreenPoints(int collectiveGreenPoints)
-  {
-    this.collectiveGreenPoints = collectiveGreenPoints;
-  }
-
   public List<GreenPointUsage> getHistoricUses()
   {
     return historicUses;
@@ -50,19 +45,9 @@ public class Cloverfield implements Serializable
     return activeMultiplier;
   }
 
-  public void setHistoricUses(ArrayList<GreenPointUsage> historicUses)
-  {
-    this.historicUses = historicUses;
-  }
-
   public void addPoints(int points)
   {
     collectiveGreenPoints += points;
-  }
-
-  public void setActiveMultiplier(double multiplier)
-  {
-    this.activeMultiplier = multiplier;
   }
 
   public void addHistoric(GreenPointUsage usage)
@@ -73,11 +58,5 @@ public class Cloverfield implements Serializable
     }
     historicUses.add(usage);
     collectiveGreenPoints-= usage.getGreenPoints();
-  }
-
-  @Override public String toString()
-  {
-    return "Cloverfield{" + "collectiveGreenPoints=" + collectiveGreenPoints
-        + ", historicUses=" + historicUses + '}';
   }
 }
