@@ -64,6 +64,21 @@ public abstract class Task implements Serializable
     this.reservedBy = reservedBy;
   }
 
+  public LocalDate getCompletedDate()
+  {
+    return completedDate;
+  }
+
+  public Resident getCompletedBy()
+  {
+    return completedBy;
+  }
+
+  public boolean isCompleted()
+  {
+    return isCompleted;
+  }
+
   public String getType()
   {
     return type;
