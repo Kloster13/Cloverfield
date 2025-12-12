@@ -1,34 +1,27 @@
 package cloverfield.presentation.controllers;
 
 import cloverfield.domain.Resident;
-import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javax.swing.text.View;
 
 public class ManageResidentController implements AcceptsStringArgument
 {
   public Label statusLabel;
-  private DataManager dataManager;
   public Button addButton;
   public Button editButton;
   public Button backButton;
   public Button detailsButton;
-  public TableColumn<Resident, Integer> idColumn;
   public TableColumn<Resident, String> nameColumn;
   public TableColumn<Resident, Integer> pointColumn;
   public TableColumn<Resident, Integer> completedTasksColumn;
   public TableColumn<Resident, Boolean> activeColumn;
   public TableColumn<Resident, String> deleteColumn;
   public TableView<Resident> residentTable;
-  private FilteredList<Resident> residentList;
 
   @Override public void setArgument(String argument)
   {
@@ -37,16 +30,12 @@ public class ManageResidentController implements AcceptsStringArgument
 
   public void init(DataManager dataManager)
   {
-    this.dataManager = dataManager;
-    residentList = new FilteredList<>(
-        FXCollections.observableArrayList(dataManager.getAllResidents()),
-        resident -> true);
+    FilteredList<Resident> residentList = new FilteredList<>(
+        FXCollections.observableArrayList(dataManager.getAllResidents()), resident -> true);
     residentTable.setItems(residentList);
 
-    idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     pointColumn.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
-   // completedTasksColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
     deleteColumn.setCellFactory(col -> {
       return new TableCell<Resident, String>()
@@ -81,17 +70,24 @@ public class ManageResidentController implements AcceptsStringArgument
 
   public void onEditButton()
   {
-    int selectedResident = residentTable.getSelectionModel().getSelectedItem().getId();
-    ViewManager.showView("EditResident", String.valueOf(selectedResident));
+    try
+    {
+      int selectedResident = residentTable.getSelectionModel().getSelectedItem().getId();
+      ViewManager.showView("EditResident", String.valueOf(selectedResident));
+    }
+    catch (NullPointerException e)
+    {
+      statusLabel.setText("Vælg opgave for at fortsætte");
+    }
   }
 
-  public void onBack(ActionEvent actionEvent)
+  public void onBack()
   {
     ViewManager.showView("Home");
   }
 
   public void onDetailsButton()
   {
-    dataManager.resetAllPersonalPoints();
+    statusLabel.setText("Detaljer");
   }
 }

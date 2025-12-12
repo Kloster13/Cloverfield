@@ -12,12 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OverviewOnScreenController
 {
+  private FilteredList<Task> taskList;
+  public TableView<Task> taskTable;
   public TableColumn<Task, String> typeColumn;
   public TableColumn<Task, String> descriptionColumn;
   public TableColumn<Task, Integer> pointColumn;
-  public TableView<Task> taskTable;
   public ComboBox<String> typeDropdown;
-  private FilteredList<Task> taskList;
 
   public void init(DataManager dataManager)
   {
@@ -39,7 +39,6 @@ public class OverviewOnScreenController
   public void onTypeDropdown()
   {
     String typeFilter = typeDropdown.getValue();
-    taskList.setPredicate(
-        task -> task.getType().equals(typeFilter)&&!task.getIsCompleted());
+    taskList.setPredicate(task -> task.getType().equals(typeFilter) && !task.getIsCompleted());
   }
 }

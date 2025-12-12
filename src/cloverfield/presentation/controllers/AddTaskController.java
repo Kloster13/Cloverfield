@@ -14,22 +14,18 @@ public class AddTaskController
   public ComboBox<Resident> reservedByInput;
   public TextArea descriptionInput;
   public Button addTaskButton;
-  public Button cancelButton;
   public Spinner<Integer> pointInput;
   public Label statusLabel;
   public ComboBox<Resident> createdBy;
-  private DataManager dataManager;
 
   public void init(DataManager dataManager)
   {
-    this.dataManager = dataManager;
     typeInput.getItems().addAll("Grøn", "Fælles", "Bytte");
     createdBy.getItems().addAll(dataManager.getAllResidents());
     createdBy.setDisable(true);
     reservedByInput.getItems().addAll(dataManager.getAllResidents());
 
-    //Spinner
-    pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999, 0));
+    pointInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999999, 0));
 
     BooleanBinding minimumFilled = descriptionInput.textProperty().isNotEmpty()
         .and(typeInput.valueProperty().isNotNull());
@@ -47,10 +43,6 @@ public class AddTaskController
       createdBy.setValue(null);
       createdBy.setDisable(true);
     }
-  }
-
-  public void onReservedBy()
-  {
   }
 
   public void onAddTasKButton()
@@ -91,12 +83,8 @@ public class AddTaskController
     }
   }
 
-  public void onCancelButton(ActionEvent actionEvent)
+  public void onCancelButton()
   {
     ViewManager.showView("ManageTask");
-  }
-
-  public void onCreatedBy(ActionEvent actionEvent)
-  {
   }
 }

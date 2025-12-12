@@ -61,12 +61,11 @@
                     <children>
                         <TableView fx:id="residentTable" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="630.0">
                             <columns>
-                                <TableColumn fx:id="idColumn" prefWidth="44.0" text="Id" />
-                                <TableColumn fx:id="nameColumn" prefWidth="206.0" text="Navn" />
-                                <TableColumn fx:id="pointColumn" minWidth="0.0" prefWidth="83.0" text="Point" />
-                        <TableColumn fx:id="completedTasksColumn" minWidth="0.0" prefWidth="124.0" text="Fuldførte opgaver" />
-                                <TableColumn fx:id="activeColumn" prefWidth="72.0" text="Aktiv" />
-                        <TableColumn fx:id="deleteColumn" prefWidth="44.0" text="Slet" />
+                                <TableColumn fx:id="nameColumn" prefWidth="259.0" text="Navn" />
+                                <TableColumn fx:id="pointColumn" minWidth="0.0" prefWidth="74.0" text="Point" />
+                        <TableColumn fx:id="completedTasksColumn" minWidth="0.0" prefWidth="143.0" text="Fuldførte opgaver" />
+                                <TableColumn fx:id="activeColumn" prefWidth="97.0" text="Aktiv" />
+                        <TableColumn fx:id="deleteColumn" prefWidth="56.0" text="Slet" />
                             </columns>
                      <VBox.margin>
                         <Insets left="-10.0" />

@@ -3,18 +3,12 @@ package cloverfield.presentation.controllers;
 import cloverfield.domain.Resident;
 import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
-import cloverfield.persistence.FileAccessException;
-import cloverfield.persistence.FileDataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 
 public class ManageTaskController implements AcceptsStringArgument
 {
@@ -22,20 +16,17 @@ public class ManageTaskController implements AcceptsStringArgument
   public Button completeButton;
   public Button editButton;
   public Button backButton;
+  private FilteredList<Task> taskList;
+  public TableView<Task> taskTable;
   public TableColumn<Task, String> typeColumn;
   public TableColumn<Task, String> descriptionColumn;
   public TableColumn<Task, Integer> pointColumn;
   public TableColumn<Task, String> statusTable;
   public TableColumn<Task, Resident> reservedTable;
   public TableColumn<Task, String> deleteColumn;
-  public TableView<Task> table;
-  public TableView<Task> taskTable;
   public ComboBox<String> typeDropdown;
-  public ComboBox<Boolean> statusDropdown;
   public Button historyToggleButton;
   public Label statusLabel;
-  private DataManager dataManager;
-  private FilteredList<Task> taskList;
   private String typeFilter;
   private boolean completedFilter;
   private boolean showHistoryView;
@@ -44,8 +35,7 @@ public class ManageTaskController implements AcceptsStringArgument
   {
     typeDropdown.getItems().addAll("Grøn", "Fælles", "Bytte");
     this.showHistoryView = false;
-    this.completedFilter=false;
-    this.dataManager = dataManager;
+    this.completedFilter = false;
 
     taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
         task -> !task.getIsCompleted());
@@ -106,15 +96,29 @@ public class ManageTaskController implements AcceptsStringArgument
 
   public void onCompleteButton()
   {
-    int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
-    ViewManager.showView("CompleteTask", String.valueOf(selectedTask));
+    try
+    {
+      int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+      ViewManager.showView("CompleteTask", String.valueOf(selectedTask));
+    }
+    catch (NullPointerException e)
+    {
+      statusLabel.setText("Vælg opgave for at fortsætte");
+    }
   }
 
   public void onEditButton()
   {
-    int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
-    System.out.println(selectedTask);
-    ViewManager.showView("EditTask", String.valueOf(selectedTask));
+    try
+    {
+      int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+      System.out.println(selectedTask);
+      ViewManager.showView("EditTask", String.valueOf(selectedTask));
+    }
+    catch (NullPointerException e)
+    {
+      statusLabel.setText("Vælg opgave for at fortsætte");
+    }
   }
 
   public void onHistoryToggleBottom()
@@ -123,24 +127,21 @@ public class ManageTaskController implements AcceptsStringArgument
 
     if (showHistoryView)
     {
-      completedFilter=true;
-      taskList.setPredicate(
-          task -> (typeFilter==null||task.getType().equals(typeFilter)) && task.getIsCompleted());
+      completedFilter = true;
+      taskList.setPredicate(task -> (typeFilter == null || task.getType().equals(typeFilter))
+          && task.getIsCompleted());
       historyToggleButton.setText("Se aktive opgaver");
       reservedTable.setText("Færdiggjort af");
       reservedTable.setCellValueFactory(new PropertyValueFactory<>("completedBy"));
     }
     else
     {
-      completedFilter=false;
+      completedFilter = false;
       historyToggleButton.setText("Se historik");
       reservedTable.setText("Reserveret af");
       reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
-      taskList.setPredicate(
-          task -> (typeFilter==null||task.getType().equals(typeFilter)) && !task.getIsCompleted());
+      taskList.setPredicate(task -> (typeFilter == null || task.getType().equals(typeFilter))
+          && !task.getIsCompleted());
     }
-
-
-
   }
 }

@@ -2,17 +2,14 @@ package cloverfield.presentation.controllers;
 
 import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
-import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
 import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-
-import javax.swing.text.View;
 
 public class EditTaskController implements AcceptsStringArgument
 {
+  private DataManager dataManager;
   public ComboBox<String> typeInput;
   public ComboBox<Resident> reservedByInput;
   public TextArea descriptionInput;
@@ -20,7 +17,6 @@ public class EditTaskController implements AcceptsStringArgument
   public ComboBox<Resident> createdBy;
   public Button addTaskButton;
   public Label statusLabel;
-  private DataManager dataManager;
   private Task taskToShow;
 
   public void init(DataManager dataManager)
@@ -71,14 +67,6 @@ public class EditTaskController implements AcceptsStringArgument
     }
   }
 
-  public void onReservedBy()
-  {
-  }
-
-  public void onCreatedBy()
-  {
-  }
-
   public void onCancelButton()
   {
     ViewManager.showView("ManageTask");
@@ -115,7 +103,7 @@ public class EditTaskController implements AcceptsStringArgument
         task.setReservedBy(reservedByInput.getValue());
       }
       dataManager.editTask(taskToShow.getId(), task);
-      ViewManager.showView("ManageTask","Opgaven blev opdateret");
+      ViewManager.showView("ManageTask", "Opgaven blev opdateret");
     }
     catch (InvalidTaskException | InvalidResidentException e)
     {

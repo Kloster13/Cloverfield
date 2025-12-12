@@ -1,7 +1,6 @@
 package cloverfield.presentation.controllers;
 
 import cloverfield.domain.InvalidResidentException;
-import cloverfield.domain.InvalidTaskException;
 import cloverfield.domain.Resident;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
@@ -10,8 +9,8 @@ import javafx.scene.control.*;
 
 public class EditResidentController implements AcceptsStringArgument
 {
-  public Label statusLabel;
   DataManager dataManager;
+  public Label statusLabel;
   public TextField nameInput;
   public Spinner<Integer> pointInput;
   public ComboBox<String> statusInput;
@@ -30,7 +29,7 @@ public class EditResidentController implements AcceptsStringArgument
     this.residentToEdit = dataManager.getResidentById(residentId);
     nameInput.setText(residentToEdit.getName());
     pointInput.setValueFactory(
-        new SpinnerValueFactory.IntegerSpinnerValueFactory(-999, 999,
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(-9999, 9999,
             residentToEdit.getPersonalPoints()));
     if (residentToEdit.isActive())
     {

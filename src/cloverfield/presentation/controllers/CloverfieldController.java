@@ -13,31 +13,27 @@ import java.time.LocalDate;
 
 public class CloverfieldController implements AcceptsStringArgument
 {
-
-  public Button useGreenPoints;
+  ;
   public Label greenPointsDisplay;
-  public TableView<GreenPointUsage> usedTable;
-  private FilteredList<GreenPointUsage> usesList;
+  public TableView<GreenPointUsage> historyTable;
   public TableColumn<GreenPointUsage, String> descriptionColumn;
   public TableColumn<GreenPointUsage, Integer> pointsColumn;
   public TableColumn<GreenPointUsage, LocalDate> dateColumn;
   public Label statusLabel;
 
-  private DataManager dataManager;
-
   public void init(DataManager dataManager)
   {
-    this.dataManager = dataManager;
-    greenPointsDisplay.setText(String.valueOf(dataManager.getCloverfield().getCollectiveGreenPoints()));
-    usesList = new FilteredList<>(
-        FXCollections.observableArrayList(dataManager.getAllUses()),
-        uses -> true);
-    usedTable.setItems(usesList);
+    greenPointsDisplay.setText(
+        String.valueOf(dataManager.getCloverfield().getCollectiveGreenPoints()));
+    FilteredList<GreenPointUsage> usesList = new FilteredList<>(
+        FXCollections.observableArrayList(dataManager.getAllUses()), uses -> true);
+    historyTable.setItems(usesList);
 
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("usageDescription"));
     pointsColumn.setCellValueFactory(new PropertyValueFactory<>("greenPoints"));
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateSpent"));
   }
+
   @Override public void setArgument(String argument)
   {
     statusLabel.setText(argument);

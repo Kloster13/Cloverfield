@@ -4,22 +4,18 @@ import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
 public class TaskConfirmationController implements AcceptsObjectArgument
 {
+  private DataManager dataManager;
   public Label typeDisplay;
   public Label pointsDisplay;
   public Label createdByDisplay;
   public Label reservedByDisplay;
   public Text descriptionDisplay;
-  public Button cancelButton;
-  public Button confirmButton;
-  public Label displayErrors;
-  private DataManager dataManager;
+  public Label statusDisplay;
   private Task task;
 
   public void init(DataManager dataManager)
@@ -61,13 +57,13 @@ public class TaskConfirmationController implements AcceptsObjectArgument
     }
     catch (InvalidResidentException | InvalidTaskException e)
     {
-      displayErrors.setText(
-          e.getMessage()); // TODO Dette er noget være lort, men det kræver et check på tidligere view for at vi kan vise den der
+      statusDisplay.setText(
+          e.getMessage());
     }
   }
 
   public void onCancelButton()
   {
-    ViewManager.showView("AddTask"); //TODO ved overskud skal denne holde værdier - lav prio
+    ViewManager.showView("AddTask");
   }
 }

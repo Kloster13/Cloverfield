@@ -12,12 +12,12 @@ import javafx.scene.text.Text;
 
 public class DeleteTaskController implements AcceptsStringArgument
 {
+  private DataManager dataManager;
   public Label typeDisplay;
   public Label pointsDisplay;
   public Label createdByDisplay;
   public Label reservedByDisplay;
   public Text descriptionDisplay;
-  private DataManager dataManager;
   private int taskId;
 
   public void init(DataManager dataManager)
@@ -27,7 +27,7 @@ public class DeleteTaskController implements AcceptsStringArgument
 
   @Override public void setArgument(String argument)
   {
-    this.taskId=Integer.parseInt(argument);
+    this.taskId = Integer.parseInt(argument);
     Task task = dataManager.getTaskById(taskId);
 
     typeDisplay.setText(task.getType());

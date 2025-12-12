@@ -23,7 +23,7 @@ public class AddResidentController
     addResidentButton.setDisable(true);
 
     pointInput.setValueFactory(
-        new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0));
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9999999, 0));
   }
 
   public void onNameInput()

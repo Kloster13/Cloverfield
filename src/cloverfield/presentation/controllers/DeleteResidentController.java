@@ -9,9 +9,9 @@ import javafx.scene.control.Label;
 
 public class DeleteResidentController implements AcceptsStringArgument
 {
+  private DataManager dataManager;
   public Label nameDisplay;
   public Label pointsDisplay;
-  private DataManager dataManager;
   private int residentId;
   private Resident resident;
 

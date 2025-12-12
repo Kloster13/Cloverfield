@@ -12,17 +12,17 @@ import javax.swing.text.View;
 
 public class UseGreenPointsController
 {
-  public TextField descriptionInput;
-  public Button cancelButton;
-  public Label statusLabel;
-  public Spinner<Integer> greenPointsInput;
   DataManager dataManager;
+  public TextField descriptionDisplay;
+  public Spinner<Integer> greenPointsDisplay;
+  public Label statusLabel;
 
   public void init(DataManager dataManager)
   {
     this.dataManager = dataManager;
-    greenPointsInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 99999, 0));
-    System.out.println(greenPointsInput.getValue());
+    greenPointsDisplay.setValueFactory(
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 99999, 0));
+    System.out.println(greenPointsDisplay.getValue());
   }
 
   public void onCancelButton()
@@ -34,11 +34,11 @@ public class UseGreenPointsController
   {
     try
     {
-      String description = descriptionInput.getText();
-      int pointsUsed = greenPointsInput.getValue();
+      String description = descriptionDisplay.getText();
+      int pointsUsed = greenPointsDisplay.getValue();
       GreenPointUsage usage = new GreenPointUsage(description, pointsUsed);
       dataManager.useGreenPoints(usage);
-      ViewManager.showView("Cloverfield",pointsUsed+" grønne point brugt!");
+      ViewManager.showView("Cloverfield", pointsUsed + " grønne point brugt!");
     }
     catch (InvalidPointUsage e)
     {

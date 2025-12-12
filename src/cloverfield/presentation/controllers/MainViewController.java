@@ -13,17 +13,17 @@ public class MainViewController
   public Button greenPoints;
   public Button showCatalogButton;
 
-  public void onHandleResident(ActionEvent actionEvent)
+  public void onHandleResident()
   {
     ViewManager.showView("ManageResident");
   }
 
-  public void onHandleTask(ActionEvent actionEvent)
+  public void onHandleTask()
   {
     ViewManager.showView("ManageTask");
   }
 
-  public void onGreenPoints(ActionEvent actionEvent)
+  public void onGreenPoints()
   {
     ViewManager.showView("Cloverfield");
   }

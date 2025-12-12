@@ -46,11 +46,11 @@
                   <Label text="Beskrivelse" GridPane.rowIndex="1" />
                   <Label text="Pointværdi" GridPane.rowIndex="2" />
                   <Label text="Reserveret af" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="reservedByInput" onAction="#onReservedBy" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="reservedByInput" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                   <TextArea fx:id="descriptionInput" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="150.0" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Spinner fx:id="pointInput" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <Label text="Oprettet af" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="createdBy" onAction="#onCreatedBy" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="createdBy" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                </children>
                <VBox.margin>
                   <Insets left="150.0" right="150.0" top="80.0" />
