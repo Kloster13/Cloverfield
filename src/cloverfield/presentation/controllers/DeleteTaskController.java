@@ -3,10 +3,8 @@ package cloverfield.presentation.controllers;
 import cloverfield.domain.Barter;
 import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
-import cloverfield.presentation.core.AcceptsObjectArgument;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 

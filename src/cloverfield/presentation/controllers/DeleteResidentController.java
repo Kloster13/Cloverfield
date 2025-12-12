@@ -4,7 +4,6 @@ import cloverfield.domain.Resident;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
 public class DeleteResidentController implements AcceptsStringArgument

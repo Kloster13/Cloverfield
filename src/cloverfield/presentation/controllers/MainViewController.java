@@ -1,10 +1,7 @@
 package cloverfield.presentation.controllers;
 
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-
-import javax.swing.text.View;
 
 public class MainViewController
 {

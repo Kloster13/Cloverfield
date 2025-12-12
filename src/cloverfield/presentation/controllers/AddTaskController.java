@@ -4,9 +4,7 @@ import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.ViewManager;
 import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 
 public class AddTaskController
 {

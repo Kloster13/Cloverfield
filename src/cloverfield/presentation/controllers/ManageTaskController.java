@@ -12,10 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ManageTaskController implements AcceptsStringArgument
 {
-  public Button addButton;
-  public Button completeButton;
-  public Button editButton;
-  public Button backButton;
   private FilteredList<Task> taskList;
   public TableView<Task> taskTable;
   public TableColumn<Task, String> typeColumn;
@@ -112,7 +108,6 @@ public class ManageTaskController implements AcceptsStringArgument
     try
     {
       int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
-      System.out.println(selectedTask);
       ViewManager.showView("EditTask", String.valueOf(selectedTask));
     }
     catch (NullPointerException e)

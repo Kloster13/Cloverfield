@@ -4,11 +4,7 @@ import cloverfield.domain.GreenPointUsage;
 import cloverfield.domain.InvalidPointUsage;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-
-import javax.swing.text.View;
 
 public class UseGreenPointsController
 {
@@ -22,7 +18,6 @@ public class UseGreenPointsController
     this.dataManager = dataManager;
     greenPointsDisplay.setValueFactory(
         new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 99999, 0));
-    System.out.println(greenPointsDisplay.getValue());
   }
 
   public void onCancelButton()

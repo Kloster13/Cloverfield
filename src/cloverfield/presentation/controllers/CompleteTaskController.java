@@ -4,18 +4,20 @@ import cloverfield.domain.*;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 public class CompleteTaskController implements AcceptsStringArgument
 {
   private DataManager dataManager;
-  public TextArea descriptionDisplay;
-  public Label typeDisplay;
-  public Label pointsDisplay;
-  public Button completeTaskButton;
-  public Label createdByDisplay;
+  public TextArea displayDescription;
+  public Label displayType;
   public ComboBox<Resident> completedByDropdown;
+  public Label displayPoint;
+  public Button cancelButton;
+  public Button completeTaskButton;
   public Label statusLabel;
+  public Label displayCreatedBy;
   private int taskId;
 
   public void init(DataManager dataManager)
@@ -29,24 +31,13 @@ public class CompleteTaskController implements AcceptsStringArgument
     this.taskId = Integer.parseInt(argument);
     Task task = dataManager.getTaskById(taskId);
     completeTaskButton.setDisable(true);
-    typeDisplay.setText(task.getType());
-    descriptionDisplay.setText(task.getDescription());
-    pointsDisplay.setText(Integer.toString(task.getPointsGained()));
+    displayType.setText(task.getType());
+    displayDescription.setText(task.getDescription());
+    displayPoint.setText(Integer.toString(task.getPointsGained()));
     if (task instanceof Barter)
     {
-      createdByDisplay.setText(((Barter) task).getCreatedBy().getName());
+      displayCreatedBy.setText(((Barter) task).getCreatedBy().getName());
     }
-  }
-
-  public void onCompletedByDropdown()
-  {
-    statusLabel.setText("klar!");
-    completeTaskButton.setDisable(false);
-  }
-
-  public void onCancelButton()
-  {
-    ViewManager.showView("ManageTask");
   }
 
   public void onCompleteTasKButton()
@@ -54,7 +45,7 @@ public class CompleteTaskController implements AcceptsStringArgument
     int residentId = completedByDropdown.getValue().getId();
     try
     {
-      dataManager.completeTaskFromList(taskId, residentId); //TODO tilføj confirmation
+      dataManager.completeTaskFromList(taskId, residentId);
       dataManager.setActiveStatus();
       ViewManager.showView("ManageTask", "Opgave oprettet");
     }
@@ -63,4 +54,16 @@ public class CompleteTaskController implements AcceptsStringArgument
       statusLabel.setText(e.getMessage());
     }
   }
+
+  public void onCancelButton()
+  {
+    ViewManager.showView("ManageTask");
+  }
+
+  public void onCompletedByDropdown()
+  {
+    statusLabel.setText("klar!");
+    completeTaskButton.setDisable(false);
+  }
+
 }

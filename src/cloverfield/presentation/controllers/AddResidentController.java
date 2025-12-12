@@ -4,7 +4,6 @@ import cloverfield.domain.InvalidResidentException;
 import cloverfield.domain.Resident;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.ViewManager;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 
