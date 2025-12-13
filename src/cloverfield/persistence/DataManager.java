@@ -21,7 +21,6 @@ public interface DataManager
   public abstract ArrayList<GreenPointUsage> getAllUses();
   public abstract void useGreenPoints(GreenPointUsage usage);
   public abstract void resetAllPersonalPoints();
-  public abstract void setActiveStatus();
   // Resident
   public abstract Resident getResidentById(int id);
   public abstract void addResident(Resident resident);

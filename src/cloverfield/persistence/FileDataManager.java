@@ -33,7 +33,7 @@ public class FileDataManager implements DataManager
     }
     catch (IOException e)
     {
-      throw new FileAccessException("Error in saving data");
+      throw new FileAccessException("Fejl i at gemme data");
     }
   }
 
@@ -46,7 +46,7 @@ public class FileDataManager implements DataManager
     }
     catch (IOException | ClassNotFoundException e)
     {
-      throw new FileAccessException("Error in loading data");
+      throw new FileAccessException("Fejl i at loade data");
     }
   }
 
@@ -220,6 +220,7 @@ public class FileDataManager implements DataManager
 
     removeTaskFromResident(dataContainer, taskId);
     taskToComplete.completeTask(residentToComplete, cloverfield);
+    setActiveStatus(dataContainer);
 
     save(dataContainer);
 
@@ -269,9 +270,8 @@ public class FileDataManager implements DataManager
     save(dataContainer);
   }
 
-  @Override public void setActiveStatus()
+public void setActiveStatus(DataContainer dataContainer)
   {
-    DataContainer dataContainer = load();
     ArrayList<Resident> residents = dataContainer.getResidents();
     residents.sort(Comparator.comparingInt(Resident::getPersonalPoints));
     for (int i = 0; i < residents.size(); i++)
@@ -285,7 +285,6 @@ public class FileDataManager implements DataManager
         residents.get(i).setActive(true);
       }
     }
-    save(dataContainer);
   }
 
   // Resident
