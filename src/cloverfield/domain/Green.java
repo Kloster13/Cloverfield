@@ -13,6 +13,10 @@ public class Green extends Task
 
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
+    if (isCompleted())
+    {
+      throw new InvalidTaskException("Opgave allerede færdiggjort");
+    }
     super.setCompletedDate(LocalDate.now());
     cloverfield.addPoints(super.getPointsGained());
     super.setCompletedBy(completedBy);

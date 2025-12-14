@@ -25,6 +25,10 @@ public class Barter extends Task
 
   @Override public void completeTask(Resident completedBy, Cloverfield cloverfield)
   {
+    if (isCompleted())
+    {
+      throw new InvalidTaskException("Opgave allerede færdiggjort");
+    }
     super.setCompletedDate(LocalDate.now());
     super.setCompletedBy(completedBy);
     super.setIsComplete(true);
@@ -33,7 +37,7 @@ public class Barter extends Task
 
   @Override public Task copyTask()
   {
-    return new Barter(getDescription(),getPointsGained(),getCreatedBy());
+    return new Barter(getDescription(), getPointsGained(), getCreatedBy());
   }
 
   @Override public boolean equals(Object o)
