@@ -6,7 +6,9 @@ import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -33,12 +35,17 @@ public class ManageTaskController implements AcceptsStringArgument
     this.showHistoryView = false;
     this.completedFilter = false;
 
-    taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
-        task -> !task.getIsCompleted());
-    taskTable.setItems(taskList);
+    ObservableList<Task> baseList = FXCollections.observableArrayList(dataManager.getAllTasks());
+    taskList = new FilteredList<>(baseList, task -> !task.getIsCompleted());
+
+    SortedList<Task> sortedList = new SortedList<>(taskList);
+    sortedList.comparatorProperty().bind(taskTable.comparatorProperty());
+    taskTable.setItems(sortedList);
+
 
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    descriptionColumn.setCellValueFactory(
+        new PropertyValueFactory<>("description"));
     pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
     statusTable.setCellValueFactory(new PropertyValueFactory<>("isCompleted"));
     reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
@@ -81,8 +88,7 @@ public class ManageTaskController implements AcceptsStringArgument
   public void onTypeDropdown()
   {
     typeFilter = typeDropdown.getValue();
-    taskList.setPredicate(
-        task -> task.getType().equals(typeFilter) && task.getIsCompleted() == completedFilter);
+    updatePredicate();
   }
 
   public void onAddButton()
@@ -94,7 +100,8 @@ public class ManageTaskController implements AcceptsStringArgument
   {
     try
     {
-      int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+      int selectedTask = taskTable.getSelectionModel().getSelectedItem()
+          .getId();
       ViewManager.showView("CompleteTask", String.valueOf(selectedTask));
     }
     catch (NullPointerException e)
@@ -107,7 +114,8 @@ public class ManageTaskController implements AcceptsStringArgument
   {
     try
     {
-      int selectedTask = taskTable.getSelectionModel().getSelectedItem().getId();
+      int selectedTask = taskTable.getSelectionModel().getSelectedItem()
+          .getId();
       ViewManager.showView("EditTask", String.valueOf(selectedTask));
     }
     catch (NullPointerException e)
@@ -123,20 +131,33 @@ public class ManageTaskController implements AcceptsStringArgument
     if (showHistoryView)
     {
       completedFilter = true;
-      taskList.setPredicate(task -> (typeFilter == null || task.getType().equals(typeFilter))
-          && task.getIsCompleted());
+      taskList.setPredicate(
+          task -> (typeFilter == null || task.getType().equals(typeFilter))
+              && task.getIsCompleted());
       historyToggleButton.setText("Se aktive opgaver");
       reservedTable.setText("Færdiggjort af");
-      reservedTable.setCellValueFactory(new PropertyValueFactory<>("completedBy"));
+      reservedTable.setCellValueFactory(
+          new PropertyValueFactory<>("completedBy"));
     }
     else
     {
       completedFilter = false;
       historyToggleButton.setText("Se historik");
       reservedTable.setText("Reserveret af");
-      reservedTable.setCellValueFactory(new PropertyValueFactory<>("reservedBy"));
-      taskList.setPredicate(task -> (typeFilter == null || task.getType().equals(typeFilter))
-          && !task.getIsCompleted());
+      reservedTable.setCellValueFactory(
+          new PropertyValueFactory<>("reservedBy"));
+      taskList.setPredicate(
+          task -> (typeFilter == null || task.getType().equals(typeFilter))
+              && !task.getIsCompleted());
     }
+    updatePredicate();
+  }
+
+  private void updatePredicate()
+  {
+    taskList.setPredicate(task ->
+        ((typeFilter == null) || task.getType().equals(typeFilter)) &&
+            (completedFilter == task.getIsCompleted())
+    );
   }
 }

@@ -4,7 +4,9 @@ import cloverfield.domain.Task;
 import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.ViewManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,14 +20,17 @@ public class OverviewOnScreenController
   public TableColumn<Task, String> descriptionColumn;
   public TableColumn<Task, Integer> pointColumn;
   public ComboBox<String> typeDropdown;
+  FilteredList<Task> filteredList;
 
   public void init(DataManager dataManager)
   {
     typeDropdown.getItems().addAll("Grøn", "Fælles", "Bytte");
 
-    taskList = new FilteredList<>(FXCollections.observableArrayList(dataManager.getAllTasks()),
-        task -> !task.getIsCompleted());
-    taskTable.setItems(taskList);
+    ObservableList<Task> taskList = FXCollections.observableArrayList(dataManager.getAllTasks());filteredList = new FilteredList<>(taskList, task -> !task.getIsCompleted());
+    SortedList<Task> sortedList = new SortedList<>(filteredList);
+    sortedList.comparatorProperty().bind(taskTable.comparatorProperty());
+    taskTable.setItems(sortedList);
+
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     pointColumn.setCellValueFactory(new PropertyValueFactory<>("pointsGained"));
@@ -39,6 +44,6 @@ public class OverviewOnScreenController
   public void onTypeDropdown()
   {
     String typeFilter = typeDropdown.getValue();
-    taskList.setPredicate(task -> task.getType().equals(typeFilter) && !task.getIsCompleted());
+    filteredList.setPredicate(task -> task.getType().equals(typeFilter) && !task.getIsCompleted());
   }
 }

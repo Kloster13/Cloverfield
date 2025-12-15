@@ -5,7 +5,9 @@ import cloverfield.persistence.DataManager;
 import cloverfield.presentation.core.AcceptsStringArgument;
 import cloverfield.presentation.core.ViewManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -30,9 +32,12 @@ public class ManageResidentController implements AcceptsStringArgument
 
   public void init(DataManager dataManager)
   {
-    FilteredList<Resident> residentList = new FilteredList<>(
-        FXCollections.observableArrayList(dataManager.getAllResidents()), resident -> true);
-    residentTable.setItems(residentList);
+
+    ObservableList<Resident> residentList = FXCollections.observableArrayList(dataManager.getAllResidents());
+    FilteredList<Resident> filteredList = new FilteredList<>(residentList, resident -> true);
+    SortedList<Resident> sortedList = new SortedList<>(filteredList);
+    sortedList.comparatorProperty().bind(residentTable.comparatorProperty());
+    residentTable.setItems(sortedList);
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     pointColumn.setCellValueFactory(new PropertyValueFactory<>("personalPoints"));
