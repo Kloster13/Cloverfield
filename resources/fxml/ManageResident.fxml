@@ -44,8 +44,7 @@
                      <children>
                         <Button fx:id="addButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onAddButton" prefWidth="80.0" text="Tilføj" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                         <Button fx:id="editButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onEditButton" prefWidth="80.0" text="Rediger" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                              <Button fx:id="backButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onBack" prefWidth="80.0" text="Tilbage" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                        <Button fx:id="detailsButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onDetailsButton" prefWidth="80.0" text="Se detajler" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                              <Button fx:id="backButton" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#onBack" prefWidth="80.0" text="Tilbage" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                         <Label fx:id="statusLabel" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>

@@ -17,7 +17,6 @@ public class ManageResidentController implements AcceptsStringArgument
   public Button addButton;
   public Button editButton;
   public Button backButton;
-  public Button detailsButton;
   public TableColumn<Resident, String> nameColumn;
   public TableColumn<Resident, Integer> pointColumn;
   public TableColumn<Resident, Integer> completedTasksColumn;
@@ -89,10 +88,5 @@ public class ManageResidentController implements AcceptsStringArgument
   public void onBack()
   {
     ViewManager.showView("Home");
-  }
-
-  public void onDetailsButton()
-  {
-    statusLabel.setText("Detaljer");
   }
 }
